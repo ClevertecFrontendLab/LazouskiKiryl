@@ -1,0 +1,70 @@
+@import '../../styles/style.scss';
+
+$filter-avatar: drop-shadow(0px 2px 4px rgba(191, 196, 201, 0.2)) drop-shadow(0px 3px 4px rgba(191, 196, 201, 0.18))
+  drop-shadow(0px 1px 5px rgba(191, 196, 201, 0.24));
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: $max-width-page;
+  margin: 32px auto 15px;
+
+  @media (max-width: $width-tablet-max) {
+    width: auto;
+    margin: 32px 64px 22px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    width: auto;
+    margin: 24px 16px 24px;
+  }
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 120px;
+
+  @media (max-width: $width-tablet-max) {
+    gap: 24px;
+  }
+}
+
+.logoLink {
+  @media (max-width: $width-tablet-max) {
+    display: none;
+  }
+}
+
+.title {
+  @media (max-width: $width-mobile-max) {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  @media (max-width: $width-tablet-max) {
+    display: none;
+  }
+}
+
+.greeting {
+  @extend %text-subtitle-small;
+}
+
+.avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  filter: $filter-avatar;
+}

@@ -1,0 +1,32 @@
+@import '../../styles//style.scss';
+
+.layoutMainPage {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+  max-width: $max-width-page;
+  margin: 0 auto;
+  padding: 47px 0 62px;
+
+  @media (max-width: $width-tablet-max) {
+    padding: 32px 64px 62px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    padding: 11px 16px 62px;
+  }
+}
+
+.menu {
+  width: 279px;
+  flex-shrink: 0;
+
+  @media (max-width: $width-tablet-max) {
+    display: none;
+  }
+}
+
+.content {
+  flex: 1 1 auto;
+}

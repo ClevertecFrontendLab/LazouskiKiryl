@@ -1,0 +1,36 @@
+@import '../../styles//style.scss';
+
+.mainPage {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  @media (max-width: $width-tablet-max) {
+    gap: 24px;
+  }
+}
+
+.books {
+  display: grid;
+}
+
+.grid {
+  grid-template-columns: repeat(4, 190px);
+  justify-content: space-between;
+  row-gap: 24px;
+
+  @media (max-width: $width-tablet-max) {
+    grid-template-columns: repeat(3, 190px);
+    row-gap: 32px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 16px;
+  }
+}
+
+.list {
+  grid-template-rows: repeat(1, 1fr);
+  row-gap: 16px;
+}

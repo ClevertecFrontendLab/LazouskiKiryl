@@ -1,0 +1,51 @@
+@import '../../styles/style.scss';
+
+.termsPage {
+  color: $color-main-dark;
+  margin-top: -10px;
+
+  @media (max-width: $width-mobile-max) {
+    margin-top: 13px;
+  }
+}
+
+.title {
+  @media (max-width: $width-mobile-max) {
+    margin-bottom: -7px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+  }
+}
+
+.item {
+  @extend %text-subtitle-large;
+  margin-top: 32px;
+
+  @media (max-width: $width-mobile-max) {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+  }
+}
+
+.subList {
+  padding-left: 30px;
+}
+
+.subItem {
+  @extend %text-body-large;
+  margin-top: 16px;
+
+  @media (max-width: $width-mobile-max) {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+  }
+}

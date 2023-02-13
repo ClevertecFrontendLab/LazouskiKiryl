@@ -1,0 +1,378 @@
+@import '../../styles/style.scss';
+
+.bookPage {
+  padding: 27px 0 0;
+}
+
+.content {
+  width: 100%;
+  max-width: $max-width-page;
+  margin: 0 auto;
+  padding: 42px 0;
+
+  @media (max-width: $width-tablet-max) {
+    padding: 48px 64px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    padding: 20px 16px;
+  }
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'L M'
+    'L A';
+  gap: 30px;
+  row-gap: 62px;
+  justify-content: stretch;
+
+  @media (max-width: $width-tablet-max) {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'L M'
+      'A A';
+    gap: 32px;
+    row-gap: 48px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      'L'
+      'M'
+      'A';
+    row-gap: 16px;
+  }
+
+  &Logo {
+    grid-area: L;
+    width: 445px;
+
+    @media (max-width: $width-tablet-max) {
+      width: 136px;
+    }
+
+    @media (max-width: $width-mobile-max) {
+      width: 188px;
+      place-self: center;
+    }
+  }
+
+  &Main {
+    grid-area: M;
+
+    &Title {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 40px;
+      letter-spacing: 0.1px;
+
+      @media (max-width: $width-tablet-max) {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 30px;
+        letter-spacing: 0.1px;
+      }
+
+      @media (max-width: $width-mobile-max) {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: 0.1px;
+      }
+    }
+
+    &Author {
+      margin: 24px 0 32px;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
+      letter-spacing: 0.1px;
+      color: $color-black-40;
+
+      @media (max-width: $width-tablet-max) {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0.1px;
+      }
+
+      @media (max-width: $width-mobile-max) {
+        margin: 8px 0 42px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+      }
+    }
+
+    &Button {
+      width: 350px;
+
+      @media (max-width: $width-tablet-max) {
+        width: 306px;
+      }
+
+      @media (max-width: $width-mobile-max) {
+        width: 100%;
+      }
+    }
+  }
+
+  &About {
+    grid-area: A;
+
+    @media (max-width: $width-mobile-max) {
+      margin-top: 26px;
+    }
+
+    &Title {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
+      letter-spacing: 0.1px;
+
+      @media (max-width: $width-tablet-max) {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.1px;
+      }
+
+      @media (max-width: $width-mobile-max) {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 28px;
+        letter-spacing: 0.1px;
+      }
+    }
+
+    &Text {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.1px;
+
+      @media (max-width: $width-tablet-max) {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.1px;
+      }
+
+      @media (max-width: $width-mobile-max) {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+      }
+    }
+  }
+}
+
+.rating {
+  margin-top: 42px;
+
+  @media (max-width: $width-tablet-max) {
+    margin-top: 52px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    margin-top: 42px;
+  }
+
+  &Title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+
+    @media (max-width: $width-tablet-max) {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.1px;
+    }
+
+    @media (max-width: $width-mobile-max) {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
+      letter-spacing: 0.1px;
+    }
+  }
+
+  &Content {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &Stars {
+    display: flex;
+    gap: 12px;
+  }
+
+  &Value {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+  }
+}
+
+.details {
+  margin-top: 62px;
+
+  @media (max-width: $width-tablet-max) {
+    margin-top: 52px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    margin-top: 24px;
+  }
+
+  &Title {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+
+    @media (max-width: $width-tablet-max) {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.1px;
+    }
+
+    @media (max-width: $width-mobile-max) {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 28px;
+      letter-spacing: 0.1px;
+    }
+  }
+
+  &Content {
+    display: flex;
+    flex-direction: row;
+
+    @media (max-width: $width-mobile-max) {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  &Left {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 475px;
+    gap: 16px;
+
+    @media (max-width: $width-tablet-max) {
+      flex: 0 0 335px;
+    }
+
+    @media (max-width: $width-mobile-max) {
+      flex: 1 1 auto;
+    }
+  }
+
+  &Right {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    gap: 16px;
+  }
+
+  &Item {
+    display: flex;
+
+    &Key {
+      @extend %text-subtitle-large;
+      flex: 0 0 190px;
+      color: $color-black-40;
+
+      @media (max-width: $width-tablet-max) {
+        flex: 0 0 138px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0.1px;
+      }
+
+      @media (max-width: $width-mobile-max) {
+        flex: 0 0 129px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.2px;
+      }
+    }
+
+    &Value {
+      @extend %text-body-large;
+      color: $color-main-dark;
+
+      @media (max-width: $width-tablet-max) {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0.1px;
+      }
+
+      @media (max-width: $width-mobile-max) {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.2px;
+      }
+    }
+  }
+}
+
+.divider {
+  width: 350px;
+  height: 1px;
+  background: $color-black-10;
+  margin: 16px 0;
+
+  @media (max-width: $width-tablet-max) {
+    width: 305px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    width: 100%;
+    max-width: 305px;
+    margin: 4px 0;
+  }
+}

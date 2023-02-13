@@ -1,0 +1,63 @@
+@import '../../styles/style.scss';
+
+.crumbs {
+  background: $color-black-5;
+  color: $color-black-40;
+}
+
+.content {
+  width: 100%;
+  max-width: $max-width-page;
+  margin: 0 auto;
+  padding: 20px 0;
+
+  @media (max-width: $width-tablet-max) {
+    padding: 20px 64px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    padding: 20px 16px;
+  }
+}
+
+.first {
+  @extend %text-body-small;
+  display: inline;
+
+  @media (max-width: $width-mobile-max) {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.2px;
+  }
+}
+
+.separator {
+  display: inline;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+
+  @media (max-width: $width-mobile-max) {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.second {
+  display: inline;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.1px;
+
+  @media (max-width: $width-mobile-max) {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.2px;
+  }
+}

@@ -1,0 +1,125 @@
+@import '../../styles/style.scss';
+
+$box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18),
+  0px 1px 5px rgba(191, 196, 201, 0.24);
+
+.listBookCard {
+  display: flex;
+  gap: 16px;
+  padding: 24px 24px 24px 16px;
+  border-radius: 12px;
+  box-shadow: $box-shadow;
+
+  @media (max-width: $width-tablet-max) {
+    padding: 16px 24px 16px 16px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    gap: 8px;
+    padding: 16px 16px 16px 8px;
+  }
+}
+
+.logo {
+  flex-shrink: 0;
+  width: 120px;
+  height: 170px;
+
+  @media (max-width: $width-mobile-max) {
+    width: 70px;
+    height: 100px;
+  }
+}
+
+.content {
+  flex: 1 1 auto;
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 70px;
+
+  @media (max-width: $width-tablet-max) {
+    min-height: 100px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    min-height: auto;
+    gap: 3px;
+  }
+}
+
+.title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 32px;
+  color: $color-main-dark;
+
+  @media (max-width: $width-tablet-max) {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: 0.1px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.1px;
+  }
+}
+
+.author {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.1px;
+  color: $color-black-70;
+
+  @media (max-width: $width-mobile-max) {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+.panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+
+  @media (max-width: $width-tablet-max) {
+    margin-top: 16px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 3px;
+  }
+}
+
+.rating {
+  @extend %text-body-small;
+  color: $color-black-40;
+}
+
+.button {
+  width: 174px;
+
+  @media (max-width: $width-mobile-max) {
+    width: 100%;
+  }
+}

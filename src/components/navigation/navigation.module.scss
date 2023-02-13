@@ -1,0 +1,39 @@
+@import '../../styles/style.scss';
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftPanel {
+  display: flex;
+  align-items: center;
+  gap: 16.9px;
+
+  @media (max-width: $width-mobile-max) {
+    .searching & {
+      width: 100%;
+    }
+  }
+}
+
+.sortButton {
+  @media (max-width: $width-mobile-max) {
+    .searching & {
+      display: none;
+    }
+  }
+}
+
+.rightPanel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  @media (max-width: $width-mobile-max) {
+    .searching & {
+      display: none;
+    }
+  }
+}

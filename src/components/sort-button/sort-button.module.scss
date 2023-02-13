@@ -1,0 +1,44 @@
+@import '../../styles/style.scss';
+
+$box-shadow-default: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18),
+  0px 1px 5px rgba(191, 196, 201, 0.24);
+
+$box-shadow-hover: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+
+.sortButton {
+  @extend %text-body-small;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 13.5px;
+  background: $color-main-white;
+  box-shadow: $box-shadow-default;
+  border: none;
+  border-radius: 30px;
+  color: $color-black-40;
+  cursor: pointer;
+
+  @media (max-width: $width-mobile-max) {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+  }
+
+  &:hover {
+    box-shadow: $box-shadow-hover;
+  }
+}
+
+.text {
+  @media (max-width: $width-mobile-max) {
+    display: none;
+  }
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  fill: $color-black-40;
+}
