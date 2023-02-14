@@ -1,8 +1,9 @@
 import { FC, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { ReactComponent as DownIcon } from '../../assets/icons/down-arrow-icon.svg';
-import { bookCategories } from '../../mock-data/book-categories';
+import { useFetchCategoriesQuery } from '../../store/api/books-api';
 
 import cl from './menu.module.scss';
 
@@ -13,6 +14,7 @@ interface MenuProps {
 
 export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
   const [showBookCategories, setShowBookCategories] = useState<boolean>(true);
+  const { data: bookCategories } = useFetchCategoriesQuery();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
   };
 
   const bookCategoryShow = bookCategoryActive && showBookCategories;
-  const booksClassName = `${cl.tab} ${bookCategoryActive && cl.tab_active} ${bookCategoryShow && cl.tab_open}`;
+  const booksClassName = classNames(cl.tab, { [cl.tab_active]: bookCategoryActive, [cl.tab_open]: bookCategoryShow });
 
   return (
     <nav className={cl.menu}>
@@ -54,30 +56,33 @@ export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
           <DownIcon />
         </div>
 
-        <ul className={`${cl.content} ${!showBookCategories && cl.content_hidden}`}>
-          {bookCategories.map((bookCategory) => (
-            <NavLink
-              data-test-id={bookCategory.key === 'all' ? `${testId}-books` : null}
-              key={bookCategory.id}
-              to={`/books/${bookCategory.key}`}
-              onClick={onClose}
-            >
-              {({ isActive }) => (
-                <li className={`${isActive && cl.category_active}`} key={bookCategory.id}>
-                  <span className={cl.categoryName}>{bookCategory.name}</span>
-                  {bookCategory.quantity !== null && (
-                    <span className={cl.categoryQuantity}>{bookCategory.quantity}</span>
-                  )}
-                </li>
-              )}
-            </NavLink>
-          ))}
+        <ul className={classNames(cl.content, { [cl.content_hidden]: !showBookCategories })}>
+          <NavLink data-test-id={`${testId}-books`} to='/books/all' onClick={onClose}>
+            {({ isActive }) => (
+              <li className={classNames({ [cl.category_active]: isActive })}>
+                <span className={cl.categoryName}>Все книги</span>
+                <span className={cl.categoryQuantity}>0</span>
+              </li>
+            )}
+          </NavLink>
+
+          {bookCategories &&
+            bookCategories.map((bookCategory) => (
+              <NavLink key={bookCategory.id} to={`/books/${bookCategory.path}`} onClick={onClose}>
+                {({ isActive }) => (
+                  <li className={classNames({ [cl.category_active]: isActive })} key={bookCategory.id}>
+                    <span className={cl.categoryName}>{bookCategory.name}</span>
+                    <span className={cl.categoryQuantity}>0</span>
+                  </li>
+                )}
+              </NavLink>
+            ))}
         </ul>
       </div>
 
       <NavLink data-test-id={`${testId}-terms`} to='/terms' onClick={handleClickNotBookCategory}>
         {({ isActive }) => (
-          <div className={`${cl.tab} ${isActive && cl.tab_active}`}>
+          <div className={classNames(cl.tab, { [cl.tab_active]: isActive })}>
             <div className={cl.header}>
               <h5 className={cl.title}>Правила пользования</h5>
             </div>
@@ -87,7 +92,7 @@ export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
 
       <NavLink data-test-id={`${testId}-contract`} to='/contract' onClick={handleClickNotBookCategory}>
         {({ isActive }) => (
-          <div className={`${cl.tab} ${isActive && cl.tab_active}`}>
+          <div className={classNames(cl.tab, { [cl.tab_active]: isActive })}>
             <div className={cl.header}>
               <h5 className={cl.title}>Договор оферты</h5>
             </div>
