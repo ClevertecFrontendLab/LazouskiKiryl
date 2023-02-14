@@ -48,6 +48,17 @@ $height-author: calc($line-height * 2);
   line-height: 18px;
   letter-spacing: 0.1px;
 
+  // max lines - 3
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -moz-box;
+  display: -webkit-box;
+  box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+
   @media (max-width: $width-tablet-max) {
     font-style: normal;
     font-weight: 700;
@@ -74,6 +85,17 @@ $height-author: calc($line-height * 2);
   font-size: 14px;
   line-height: 18px;
   letter-spacing: 0.1px;
+
+  // max lines - 2
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -moz-box;
+  display: -webkit-box;
+  box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
 
   @media (max-width: $width-tablet-max) {
     font-family: 'Montserrat';

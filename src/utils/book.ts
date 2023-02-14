@@ -1,13 +1,13 @@
-import { IBook } from '../types/book';
+import { Book } from '../types/book';
 
-export const createButtonText = (book: IBook): string => {
-  if (book.status === 'available') {
-    return 'Забронировать';
-  }
-
-  if (book.status === 'booked') {
+export const createButtonText = (book: Book): string => {
+  if (book.booking) {
     return 'Забронирована';
   }
 
-  return `Занята до ${book.unavailableUntil}`;
+  if (book.delivery) {
+    return `Занята до ${book.delivery.dateHandedTo}`;
+  }
+
+  return 'Забронировать';
 };

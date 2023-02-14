@@ -26,7 +26,7 @@ export const BookPage = () => {
       return <BookLogo logoSrc={bookImages[0].src} />;
     }
 
-    return <BookLogo />;
+    return <BookLogo logoSrc={null} />;
   };
 
   return (
