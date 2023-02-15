@@ -163,6 +163,7 @@
     }
 
     &Text {
+      margin-top: 32px;
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
@@ -178,6 +179,7 @@
       }
 
       @media (max-width: $width-mobile-max) {
+        margin-top: 16px;
         font-style: normal;
         font-weight: 400;
         font-size: 12px;

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { Book } from '../../types/book';
-import { createButtonText } from '../../utils/book';
+import { createAuthotsAndIssueYear, createButtonAttributes } from '../../utils/book';
 import { BookLogo } from '../book-logo';
 import { Button } from '../button';
 import { Rating } from '../rating';
@@ -13,14 +13,9 @@ interface BookCardProps {
 }
 
 export const BookCard: FC<BookCardProps> = ({ book }) => {
-  const rating = book.rating ? <Rating value={book.rating} /> : <p>ещё нет оценок</p>;
-
-  const buttonVariant = book.booking || book.delivery ? 'secondary' : 'primary';
-  const buttonDisabled = !!book.delivery;
-
   const logoSrc = book.image && book.image.url ? book.image.url : null;
 
-  const authors = book.authors ? `${book.authors.join(', ')}, ${book.issueYear}` : book.issueYear;
+  const rating = book.rating ? <Rating value={book.rating} /> : <p>ещё нет оценок</p>;
 
   return (
     <div className={cl.bookCard} data-test-id='card'>
@@ -29,9 +24,9 @@ export const BookCard: FC<BookCardProps> = ({ book }) => {
       </div>
       <div className={cl.rating}>{rating}</div>
       <h5 className={cl.title}>{book.title}</h5>
-      <p className={cl.author}>{authors}</p>
+      <p className={cl.author}>{createAuthotsAndIssueYear(book)}</p>
       <div className={cl.button}>
-        <Button text={createButtonText(book)} variant={buttonVariant} disabled={buttonDisabled} fullWidth={true} />
+        <Button fullWidth={true} {...createButtonAttributes(book)} />
       </div>
     </div>
   );

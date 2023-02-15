@@ -11,3 +11,20 @@ export const createButtonText = (book: Book): string => {
 
   return 'Забронировать';
 };
+
+export const createButtonAttributes = (
+  book: Book
+): { text: string; variant: 'primary' | 'secondary'; disabled: boolean } => {
+  const text = createButtonText(book);
+  const variant = book.booking || book.delivery ? 'secondary' : 'primary';
+  const disabled = !!book.delivery;
+
+  return {
+    text,
+    variant,
+    disabled,
+  };
+};
+
+export const createAuthotsAndIssueYear = (book: Book): string =>
+  book.authors ? `${book.authors.join(', ')}, ${book.issueYear}` : String(book.issueYear);

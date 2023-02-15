@@ -3,7 +3,8 @@ import { Pagination, Scrollbar, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperClass from 'swiper/types/swiper-class';
 
-import { IImage } from '../../types/book';
+import { API_HOST } from '../../constants/constants';
+import { Image } from '../../types/book';
 
 import './swiper.scss';
 import cl from './book-swiper.module.scss';
@@ -14,7 +15,7 @@ import 'swiper/scss/scrollbar';
 import 'swiper/scss/thumbs';
 
 interface BookSwiperProps {
-  images: IImage[];
+  images: Image[];
 }
 
 export const BookSwiper: FC<BookSwiperProps> = ({ images }) => {
@@ -36,8 +37,8 @@ export const BookSwiper: FC<BookSwiperProps> = ({ images }) => {
         }}
       >
         {images.map((image) => (
-          <SwiperSlide className={cl.mainSlide} key={image.id}>
-            <img src={image.src} alt='book' />
+          <SwiperSlide className={cl.mainSlide} key={image.url}>
+            <img src={`${API_HOST}${image.url}`} alt='book' />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -61,8 +62,8 @@ export const BookSwiper: FC<BookSwiperProps> = ({ images }) => {
         onSwiper={setThumbsSwiper}
       >
         {images.map((image) => (
-          <SwiperSlide data-test-id='slide-mini' className={cl.thumbsSlide} key={image.id}>
-            <img src={image.src} alt='book' />
+          <SwiperSlide data-test-id='slide-mini' className={cl.thumbsSlide} key={image.url}>
+            <img src={`${API_HOST}${image.url}`} alt='book' />
           </SwiperSlide>
         ))}
       </Swiper>
