@@ -30,3 +30,20 @@
 .content {
   flex: 1 1 auto;
 }
+
+.toast {
+  position: fixed;
+  top: 64px;
+  left: 50%;
+  width: 100%;
+  max-width: $max-width-page;
+  transform: translateX(-50%);
+
+  @media (max-width: $width-tablet-max) {
+    padding: 0 64px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    padding: 0 16px;
+  }
+}

@@ -8,6 +8,7 @@ import { Button } from '../../components/button';
 import { Crumbs } from '../../components/crumbs';
 import { Loader } from '../../components/loader';
 import { Reviews } from '../../components/reviews';
+import { Toast } from '../../components/toast';
 import { bookDetailItems1, bookDetailItems2 } from '../../mock-data/book-detail';
 import { useFetchBookQuery } from '../../store/api/books-api';
 import { createAuthotsAndIssueYear, createButtonAttributes } from '../../utils/book';
@@ -16,7 +17,7 @@ import cl from './book-page.module.scss';
 
 export const BookPage = () => {
   const { bookId } = useParams();
-  const { data: book, isLoading } = useFetchBookQuery(String(bookId));
+  const { data: book, isLoading, isError } = useFetchBookQuery(String(bookId));
 
   const createBookLogo = () => {
     if (!book?.images) {
@@ -89,6 +90,11 @@ export const BookPage = () => {
         </div>
       )}
       {isLoading && <Loader />}
+      {isError && (
+        <div className={cl.toast}>
+          <Toast message='Что-то пошло не так. Обновите страницу через некоторое время.' type='warning' />
+        </div>
+      )}
     </section>
   );
 };

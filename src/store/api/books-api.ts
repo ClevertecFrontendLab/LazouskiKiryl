@@ -18,7 +18,7 @@ export const booksApi = createApi({
       query: () => booksURL,
     }),
     fetchBook: builder.query<BookDetails, string>({
-      query: (bookId) => `${booksURL}/${bookId}`,
+      query: (bookId) => `${booksURL}/${bookId}/fdfdf`,
     }),
   }),
 });
