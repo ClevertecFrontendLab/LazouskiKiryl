@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import emptyStarIcon from '../../assets/icons/empty-star.svg';
@@ -18,6 +19,7 @@ import cl from './book-page.module.scss';
 export const BookPage = () => {
   const { bookId } = useParams();
   const { data: book, isLoading, isError } = useFetchBookQuery(String(bookId));
+  const [showError, setShowError] = useState(true);
 
   const createBookLogo = () => {
     if (!book?.images) {
@@ -90,9 +92,13 @@ export const BookPage = () => {
         </div>
       )}
       {isLoading && <Loader />}
-      {isError && (
+      {isError && showError && (
         <div className={cl.toast}>
-          <Toast message='Что-то пошло не так. Обновите страницу через некоторое время.' type='warning' />
+          <Toast
+            message='Что-то пошло не так. Обновите страницу через некоторое время.'
+            type='warning'
+            onClose={() => setShowError(false)}
+          />
         </div>
       )}
     </section>

@@ -15,10 +15,17 @@ const toastTypeIcons = {
 interface ToastProps {
   type: keyof typeof toastTypeIcons;
   message: string;
+  onClose?: () => void;
 }
 
-export const Toast: FC<ToastProps> = ({ type, message }) => {
+export const Toast: FC<ToastProps> = ({ type, message, onClose }) => {
   const Icon = toastTypeIcons[type];
+
+  const handleClose = () => {
+    if (onClose) {
+      onClose();
+    }
+  };
 
   return (
     <div
@@ -29,7 +36,7 @@ export const Toast: FC<ToastProps> = ({ type, message }) => {
     >
       <Icon className={cl.icon} />
       <p className={cl.message}>{message}</p>
-      <CloseIcon className={cl.close} />
+      <CloseIcon className={cl.close} onClick={handleClose} />
     </div>
   );
 };

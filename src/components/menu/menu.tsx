@@ -3,7 +3,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { ReactComponent as DownIcon } from '../../assets/icons/down-arrow-icon.svg';
-import { useFetchCategoriesQuery } from '../../store/api/books-api';
+import { useFetchBooksQuery, useFetchCategoriesQuery } from '../../store/api/books-api';
 
 import cl from './menu.module.scss';
 
@@ -15,6 +15,7 @@ interface MenuProps {
 export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
   const [showBookCategories, setShowBookCategories] = useState<boolean>(true);
   const { data: bookCategories } = useFetchCategoriesQuery();
+  const { isSuccess: isBooksSuccess } = useFetchBooksQuery();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -53,21 +54,21 @@ export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
           aria-hidden='true'
         >
           <h5 className={cl.title}>Витрина книг</h5>
-          <DownIcon />
+          {bookCategories && isBooksSuccess && <DownIcon />}
         </div>
 
-        <ul className={classNames(cl.content, { [cl.content_hidden]: !showBookCategories })}>
-          <NavLink data-test-id={`${testId}-books`} to='/books/all' onClick={onClose}>
-            {({ isActive }) => (
-              <li className={classNames({ [cl.category_active]: isActive })}>
-                <span className={cl.categoryName}>Все книги</span>
-                <span className={cl.categoryQuantity}>0</span>
-              </li>
-            )}
-          </NavLink>
+        {bookCategories && isBooksSuccess && (
+          <ul className={classNames(cl.content, { [cl.content_hidden]: !showBookCategories })}>
+            <NavLink data-test-id={`${testId}-books`} to='/books/all' onClick={onClose}>
+              {({ isActive }) => (
+                <li className={classNames({ [cl.category_active]: isActive })}>
+                  <span className={cl.categoryName}>Все книги</span>
+                  <span className={cl.categoryQuantity}>0</span>
+                </li>
+              )}
+            </NavLink>
 
-          {bookCategories &&
-            bookCategories.map((bookCategory) => (
+            {bookCategories.map((bookCategory) => (
               <NavLink key={bookCategory.id} to={`/books/${bookCategory.path}`} onClick={onClose}>
                 {({ isActive }) => (
                   <li className={classNames({ [cl.category_active]: isActive })} key={bookCategory.id}>
@@ -77,7 +78,8 @@ export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
                 )}
               </NavLink>
             ))}
-        </ul>
+          </ul>
+        )}
       </div>
 
       <NavLink data-test-id={`${testId}-terms`} to='/terms' onClick={handleClickNotBookCategory}>
