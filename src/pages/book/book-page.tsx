@@ -93,7 +93,7 @@ export const BookPage = () => {
       )}
       {isLoading && <Loader />}
       {isError && showError && (
-        <div className={cl.toast}>
+        <div data-test-id='error' className={cl.toast}>
           <Toast
             message='Что-то пошло не так. Обновите страницу через некоторое время.'
             type='warning'

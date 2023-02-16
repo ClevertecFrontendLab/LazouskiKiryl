@@ -27,7 +27,7 @@ export const LayoutMainPage = () => {
       </div>
       {isLoading && <Loader />}
       {isShowError && (
-        <div className={cl.toast}>
+        <div data-test-id='error' className={cl.toast}>
           <Toast
             message='Что-то пошло не так. Обновите страницу через некоторое время.'
             type='warning'
