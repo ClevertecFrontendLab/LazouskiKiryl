@@ -6,23 +6,22 @@
 
 .mainSlide {
   width: 100%;
-  height: 594px;
   border: 1px solid $color-black-40;
   border-radius: 10px;
 
-  @media (max-width: $width-tablet-max) {
-    height: 198px;
-  }
-
-  @media (max-width: $width-mobile-max) {
-    height: 260px;
-  }
-
   & img {
     width: 100%;
-    height: 100%;
+    height: 594px;
     border-radius: 10px;
     object-fit: contain;
+
+    @media (max-width: $width-tablet-max) {
+      height: 198px;
+    }
+
+    @media (max-width: $width-mobile-max) {
+      height: 260px;
+    }
   }
 }
 

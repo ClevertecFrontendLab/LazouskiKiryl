@@ -12,6 +12,7 @@ import { Reviews } from '../../components/reviews';
 import { Toast } from '../../components/toast';
 import { bookDetailItems1, bookDetailItems2 } from '../../mock-data/book-detail';
 import { useFetchBookQuery } from '../../store/api/books-api';
+import { Image } from '../../types/book';
 import { createAuthotsAndIssueYear, createButtonAttributes } from '../../utils/book';
 
 import cl from './book-page.module.scss';
@@ -21,17 +22,7 @@ export const BookPage = () => {
   const { data: book, isLoading, isError } = useFetchBookQuery(String(bookId));
   const [showError, setShowError] = useState(true);
 
-  const createBookLogo = () => {
-    if (!book?.images) {
-      return <BookLogo logoSrc={null} />;
-    }
-
-    if (book.images.length === 1) {
-      return <BookLogo logoSrc={book.images[0].url} />;
-    }
-
-    return <BookSwiper images={book.images} />;
-  };
+  const showSwiper = book?.images && book.images.length > 1;
 
   return (
     <section className={cl.bookPage}>
@@ -39,7 +30,15 @@ export const BookPage = () => {
       {book && (
         <div className={cl.content}>
           <section className={cl.header}>
-            <div className={cl.headerLogo}>{createBookLogo()}</div>
+            <div className={cl.headerLogo}>
+              {showSwiper ? (
+                <BookSwiper images={book.images as Image[]} />
+              ) : (
+                <div className={cl.headerLogoImage}>
+                  <BookLogo logoSrc={book.images ? book.images[0].url : null} />
+                </div>
+              )}
+            </div>
             <div className={cl.headerMain}>
               <h3 className={cl.headerMainTitle}>{book.title}</h3>
               <p className={cl.headerMainAuthor}>{createAuthotsAndIssueYear(book)}</p>

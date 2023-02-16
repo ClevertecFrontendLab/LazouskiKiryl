@@ -62,6 +62,18 @@
       width: 188px;
       place-self: center;
     }
+
+    &Image {
+      height: 594px;
+
+      @media (max-width: $width-tablet-max) {
+        height: 198px;
+      }
+
+      @media (max-width: $width-mobile-max) {
+        height: 260px;
+      }
+    }
   }
 
   &Main {
