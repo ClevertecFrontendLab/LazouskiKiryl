@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { Loader } from '../../components/loader';
-import { Menu } from '../../components/menu';
-import { Toast } from '../../components/toast';
 import { useFetchBooksQuery, useFetchCategoriesQuery } from '../../store/api/books-api';
+import { Loader } from '../loader';
+import { Menu } from '../menu';
+import { Toast } from '../toast';
 
-import cl from './layout-main-page.module.scss';
+import cl from './layout-main.module.scss';
 
-export const LayoutMainPage = () => {
+export const LayoutMain = () => {
   const { isLoading: isCategoryLoading, isError: isCategoryError } = useFetchCategoriesQuery();
   const { isLoading: isBooksLoading, isError: isBooksError } = useFetchBooksQuery();
   const [showError, setShowError] = useState(true);

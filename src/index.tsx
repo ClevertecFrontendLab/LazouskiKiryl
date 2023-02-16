@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import { Layout } from './components/layout';
+import { LayoutMain } from './components/layuot-main';
 import { BookPage } from './pages/book';
-import { LayoutMainPage } from './pages/layuot-main';
 import { MainPage } from './pages/main';
 import { TermsPage } from './pages/terms';
 import { store } from './store';
@@ -20,7 +20,7 @@ root.render(
       <HashRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
-            <Route element={<LayoutMainPage />}>
+            <Route element={<LayoutMain />}>
               <Route path='/' element={<Navigate to='/books/all' />} />
               <Route path='/books/:category' element={<MainPage />} />
               <Route path='/terms' element={<TermsPage title='Правила пользования' />} />
