@@ -13,7 +13,7 @@ interface ListBookCardProps {
 }
 
 export const ListBookCard: FC<ListBookCardProps> = ({ book }) => {
-  const rating = book.rating ? <Rating value={book.rating} /> : <p>ещё нет оценок</p>;
+  const rating = book.rating ? <Rating value={book.rating} size='small' /> : <p>ещё нет оценок</p>;
 
   const buttonVariant = book.booking || book.delivery ? 'secondary' : 'primary';
   const buttonDisabled = !!book.delivery;

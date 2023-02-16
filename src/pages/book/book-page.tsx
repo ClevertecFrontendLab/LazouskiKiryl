@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import emptyStarIcon from '../../assets/icons/empty-star.svg';
-import starIcon from '../../assets/icons/star.svg';
 import { BookLogo } from '../../components/book-logo';
 import { BookSwiper } from '../../components/book-swiper';
 import { Button } from '../../components/button';
 import { Crumbs } from '../../components/crumbs';
 import { Loader } from '../../components/loader';
+import { Rating } from '../../components/rating';
 import { Reviews } from '../../components/reviews';
 import { Toast } from '../../components/toast';
 import { bookDetailItems1, bookDetailItems2 } from '../../mock-data/book-detail';
@@ -54,16 +53,7 @@ export const BookPage = () => {
           <section className={cl.rating}>
             <h5 className={cl.ratingTitle}>Рейтинг</h5>
             <div className={cl.divider} />
-            <div className={cl.ratingContent}>
-              <div className={cl.ratingStars}>
-                <img className={cl.star} src={starIcon} alt='star' />
-                <img className={cl.star} src={starIcon} alt='star' />
-                <img className={cl.star} src={starIcon} alt='star' />
-                <img className={cl.star} src={starIcon} alt='star' />
-                <img className={cl.star} src={emptyStarIcon} alt='star' />
-              </div>
-              <p className={cl.ratingValue}>4.3</p>
-            </div>
+            <Rating value={0} withValue={true} size='large' />
           </section>
           <section className={cl.details}>
             <h5 className={cl.detailsTitle}>Подробная информация</h5>

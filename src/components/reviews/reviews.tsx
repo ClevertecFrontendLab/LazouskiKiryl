@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { FC, Fragment, useState } from 'react';
 import classNames from 'classnames';
 
 import downArrowIcon from '../../assets/icons/down-arrow-icon.svg';
@@ -6,18 +6,25 @@ import emptyStarIcon from '../../assets/icons/empty-star.svg';
 import starIcon from '../../assets/icons/star.svg';
 import reviewAvatar from '../../assets/images/review-avatar.png';
 import { reviews } from '../../mock-data/reviews';
+import { Comment } from '../../types/book';
 import { Button } from '../button';
 
 import cl from './reviews.module.scss';
 
-export const Reviews = () => {
+interface ReviewsProps {
+  comments?: Comment[] | null;
+}
+
+export const Reviews: FC<ReviewsProps> = ({ comments }) => {
   const [showReviews, setShowReviews] = useState<boolean>(true);
+
+  const commentsCount = comments ? comments.length : 0;
 
   return (
     <section className={cl.reviews}>
       <div className={cl.header}>
         <h5 className={cl.title}>Отзывы</h5>
-        <span className={cl.count}>3</span>
+        <span className={cl.count}>{commentsCount}</span>
         <button
           data-test-id='button-hide-reviews'
           className={classNames(cl.showButton, { [cl.showButton_close]: showReviews })}

@@ -1,9 +1,48 @@
+@import '../../styles/style.scss';
+
 .rating {
   display: flex;
-  gap: 6px;
+  align-items: center;
+  gap: 24px;
+}
+
+.stars {
+  display: flex;
+  gap: 10px;
+  padding: 2px;
+
+  .large & {
+    gap: 16px;
+
+    @media (max-width: $width-mobile-max) {
+      gap: 12px;
+    }
+  }
+
+  .small & {
+    @media (max-width: $width-mobile-max) {
+      padding: 1px;
+      gap: 8px;
+    }
+  }
 }
 
 .star {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 19px;
+
+  .small & {
+    @media (max-width: $width-mobile-max) {
+      width: 13px;
+      height: 12px;
+    }
+  }
+}
+
+.value {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0.1px;
 }

@@ -54,7 +54,7 @@ interface History {
   userId: number | null;
 }
 
-interface Comment {
+export interface Comment {
   id: number | null;
   rating: number;
   text: string | null;
