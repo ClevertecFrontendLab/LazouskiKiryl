@@ -24,7 +24,7 @@ export const BookPage = () => {
 
   return (
     <section className={cl.bookPage}>
-      <Crumbs />
+      <Crumbs bookTitle={book ? book.title : ''} />
       {book && (
         <div className={cl.content}>
           <section className={cl.header}>
