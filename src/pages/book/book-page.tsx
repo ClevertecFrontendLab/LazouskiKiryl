@@ -9,10 +9,9 @@ import { Loader } from '../../components/loader';
 import { Rating } from '../../components/rating';
 import { Reviews } from '../../components/reviews';
 import { Toast } from '../../components/toast';
-import { bookDetailItems1, bookDetailItems2 } from '../../mock-data/book-detail';
 import { useFetchBookQuery } from '../../store/api/books-api';
 import { Image } from '../../types/book';
-import { createAuthotsAndIssueYear, createButtonAttributes } from '../../utils/book';
+import { createAuthotsAndIssueYear, createButtonAttributes, getDetails } from '../../utils/book';
 
 import cl from './book-page.module.scss';
 
@@ -67,17 +66,17 @@ export const BookPage = () => {
             <div className={cl.divider} />
             <div className={cl.detailsContent}>
               <div className={cl.detailsLeft}>
-                {bookDetailItems1.map((detail) => (
+                {getDetails(book, 'first').map((detail) => (
                   <div className={cl.detailsItem} key={detail.id}>
-                    <p className={cl.detailsItemKey}>{detail.key}</p>
+                    <p className={cl.detailsItemKey}>{detail.property}</p>
                     <p className={cl.detailsItemValue}>{detail.value}</p>
                   </div>
                 ))}
               </div>
               <div className={cl.detailsRight}>
-                {bookDetailItems2.map((detail) => (
+                {getDetails(book, 'second').map((detail) => (
                   <div className={cl.detailsItem} key={detail.id}>
-                    <p className={cl.detailsItemKey}>{detail.key}</p>
+                    <p className={cl.detailsItemKey}>{detail.property}</p>
                     <p className={cl.detailsItemValue}>{detail.value}</p>
                   </div>
                 ))}
