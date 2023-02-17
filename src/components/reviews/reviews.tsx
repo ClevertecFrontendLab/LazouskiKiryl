@@ -1,13 +1,12 @@
 import { FC, Fragment, useState } from 'react';
 import classNames from 'classnames';
 
-import downArrowIcon from '../../assets/icons/down-arrow-icon.svg';
-import emptyStarIcon from '../../assets/icons/empty-star.svg';
-import starIcon from '../../assets/icons/star.svg';
-import reviewAvatar from '../../assets/images/review-avatar.png';
-import { reviews } from '../../mock-data/reviews';
+import cat from '../../assets/icons/cat.svg';
+import { ReactComponent as DownIcon } from '../../assets/icons/down-arrow-icon.svg';
+import { API_HOST } from '../../constants/constants';
 import { Comment } from '../../types/book';
 import { Button } from '../button';
+import { Rating } from '../rating';
 
 import cl from './reviews.module.scss';
 
@@ -25,36 +24,38 @@ export const Reviews: FC<ReviewsProps> = ({ comments }) => {
       <div className={cl.header}>
         <h5 className={cl.title}>Отзывы</h5>
         <span className={cl.count}>{commentsCount}</span>
-        <button
-          data-test-id='button-hide-reviews'
-          className={classNames(cl.showButton, { [cl.showButton_close]: showReviews })}
-          type='button'
-          onClick={() => setShowReviews(!showReviews)}
-        >
-          <img src={downArrowIcon} alt='search' />
-        </button>
+        {comments && (
+          <button
+            data-test-id='button-hide-reviews'
+            className={classNames(cl.showButton, { [cl.showButton_close]: showReviews })}
+            type='button'
+            onClick={() => setShowReviews(!showReviews)}
+          >
+            <DownIcon className={cl.showButtonIcon} />
+          </button>
+        )}
       </div>
-      {showReviews && (
+      {comments && showReviews && (
         <Fragment>
           <div className={cl.divider} />
           <div className={cl.content}>
-            {reviews.map((review) => (
-              <div className={cl.review} key={review.id}>
+            {comments.map((comment) => (
+              <div className={cl.review} key={comment.id}>
                 <div className={cl.reviewHeader}>
-                  <img className={cl.reviewAvatar} src={reviewAvatar} alt='avatar' />
+                  <img
+                    className={cl.reviewAvatar}
+                    src={comment.user.avatarUrl ? `${API_HOST}${comment.user.avatarUrl}` : cat}
+                    alt='avatar'
+                  />
                   <div className={cl.reviewInformation}>
-                    <p>{review.name}</p>
-                    <p>{review.date}</p>
+                    <p>{`${comment.user.firstName} ${comment.user.lastName}`}</p>
+                    <p>{comment.createdAt}</p>
                   </div>
                 </div>
                 <div className={cl.reviewRating}>
-                  <img className={cl.star} src={starIcon} alt='star' />
-                  <img className={cl.star} src={starIcon} alt='star' />
-                  <img className={cl.star} src={starIcon} alt='star' />
-                  <img className={cl.star} src={starIcon} alt='star' />
-                  <img className={cl.star} src={emptyStarIcon} alt='star' />
+                  <Rating value={comment.rating} size='large' />
                 </div>
-                {review.comment && <div className={cl.reviewContent}>{review.comment}</div>}
+                {comment.text && <div className={cl.reviewContent}>{comment.text}</div>}
               </div>
             ))}
           </div>

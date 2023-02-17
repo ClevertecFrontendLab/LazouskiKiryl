@@ -46,6 +46,10 @@
   &_close {
     transform: rotate(180deg);
   }
+
+  &Icon {
+    fill: $color-main-dark;
+  }
 }
 
 .content {
@@ -94,6 +98,7 @@
   &Avatar {
     width: 32px;
     height: 32px;
+    border-radius: 50px;
   }
 
   &Information {
@@ -108,12 +113,9 @@
   }
 
   &Rating {
-    display: flex;
-    gap: 12px;
     margin-top: 16px;
 
     @media (max-width: $width-mobile-max) {
-      gap: 8px;
       margin-top: 8px;
     }
   }

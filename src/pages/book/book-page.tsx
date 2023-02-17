@@ -77,7 +77,7 @@ export const BookPage = () => {
               </div>
             </div>
           </section>
-          <Reviews />
+          <Reviews comments={book.comments} />
         </div>
       )}
       {isLoading && <Loader />}
