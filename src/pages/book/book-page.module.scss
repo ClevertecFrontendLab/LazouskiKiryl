@@ -235,6 +235,27 @@
       letter-spacing: 0.1px;
     }
   }
+
+  &Content {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &Value {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+  }
+
+  &NotValue {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.1px;
+  }
 }
 
 .details {

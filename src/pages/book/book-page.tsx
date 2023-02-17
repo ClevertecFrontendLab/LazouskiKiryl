@@ -53,7 +53,14 @@ export const BookPage = () => {
           <section className={cl.rating}>
             <h5 className={cl.ratingTitle}>Рейтинг</h5>
             <div className={cl.divider} />
-            <Rating value={0} withValue={true} size='large' />
+            <div className={cl.ratingContent}>
+              <Rating value={book.rating ? book.rating : 0} size='large' />
+              {book.rating === null ? (
+                <span className={cl.ratingNotValue}>ещё нет оценок</span>
+              ) : (
+                <span className={cl.ratingValue}>{book.rating}</span>
+              )}
+            </div>
           </section>
           <section className={cl.details}>
             <h5 className={cl.detailsTitle}>Подробная информация</h5>

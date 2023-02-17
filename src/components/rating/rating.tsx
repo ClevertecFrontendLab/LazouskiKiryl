@@ -10,11 +10,10 @@ const MAX_VALUE = 5;
 
 interface RatingProps {
   value: number;
-  withValue?: boolean;
   size?: 'small' | 'medium' | 'large';
 }
 
-export const Rating: FC<RatingProps> = ({ value, withValue = false, size = 'medium' }) => {
+export const Rating: FC<RatingProps> = ({ value, size = 'medium' }) => {
   const createStars = () => {
     const roundedValue = Math.round(value);
     const stars = [];
@@ -31,7 +30,6 @@ export const Rating: FC<RatingProps> = ({ value, withValue = false, size = 'medi
   return (
     <div className={classNames(cl.rating, { [cl.small]: size === 'small', [cl.large]: size === 'large' })}>
       <div className={cl.stars}>{createStars()}</div>
-      {withValue && <span className={cl.value}>{value}</span>}
     </div>
   );
 };
