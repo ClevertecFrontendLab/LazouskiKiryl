@@ -1,0 +1,43 @@
+@import '../../styles//style.scss';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: $max-width-page;
+  margin: 0 auto;
+  padding: 16px 0;
+  border-top: 1px solid $color-black-20;
+
+  @media (max-width: $width-tablet-max) {
+    width: auto;
+    margin: 0 64px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    flex-direction: column;
+    gap: 16px;
+    width: auto;
+    margin: 0 16px;
+    padding-bottom: 8px;
+    padding-left: 30px;
+    padding-right: 30px;
+    text-align: center;
+  }
+}
+
+.copyright {
+  @extend %text-body-large;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+
+  &Icon {
+    width: 24px;
+    height: 24px;
+  }
+}

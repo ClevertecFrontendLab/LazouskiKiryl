@@ -1,0 +1,158 @@
+@import '../../styles/style.scss';
+
+.reviews {
+  margin-top: 62px;
+
+  @media (max-width: $width-tablet-max) {
+    margin-top: 52px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    margin-top: 42px;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0.1px;
+}
+
+.count {
+  margin-left: 6px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.1px;
+  color: $color-black-40;
+}
+
+.showButton {
+  width: 24px;
+  height: 24px;
+  margin-left: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  &_close {
+    transform: rotate(180deg);
+  }
+
+  &Icon {
+    fill: $color-main-dark;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+  max-width: 730px;
+
+  @media (max-width: $width-mobile-max) {
+    gap: 32px;
+  }
+}
+
+.reviewButton {
+  width: 350px;
+  margin-top: 42px;
+
+  @media (max-width: $width-mobile-max) {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+.review {
+  &Header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+    color: $color-black-70;
+
+    @media (max-width: $width-mobile-max) {
+      gap: 18px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+    }
+  }
+
+  &Avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50px;
+  }
+
+  &Information {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+
+    @media (max-width: $width-mobile-max) {
+      flex-direction: column;
+      gap: 3px;
+    }
+  }
+
+  &Rating {
+    margin-top: 16px;
+
+    @media (max-width: $width-mobile-max) {
+      margin-top: 8px;
+    }
+  }
+
+  &Content {
+    margin-top: 16px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+
+    @media (max-width: $width-mobile-max) {
+      margin-top: 8px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+    }
+  }
+}
+
+.divider {
+  width: 350px;
+  height: 1px;
+  background: $color-black-10;
+  margin: 16px 0;
+
+  @media (max-width: $width-tablet-max) {
+    width: 305px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    width: 100%;
+    max-width: 305px;
+    margin: 4px 0;
+  }
+}

@@ -1,0 +1,39 @@
+@import '../../styles/style.scss';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(54, 54, 54, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.loader {
+  width: 68px;
+  height: 68px;
+  animation: spin 1s linear infinite;
+
+  @media (max-width: $width-tablet-max) {
+    width: 44px;
+    height: 44px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,40 @@
+@import '../../styles/style.scss';
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.stars {
+  display: flex;
+  gap: 10px;
+  padding: 2px;
+
+  .large & {
+    gap: 16px;
+
+    @media (max-width: $width-mobile-max) {
+      gap: 12px;
+    }
+  }
+
+  .small & {
+    @media (max-width: $width-mobile-max) {
+      padding: 1px;
+      gap: 8px;
+    }
+  }
+}
+
+.star {
+  width: 20px;
+  height: 19px;
+
+  .small & {
+    @media (max-width: $width-mobile-max) {
+      width: 13px;
+      height: 12px;
+    }
+  }
+}

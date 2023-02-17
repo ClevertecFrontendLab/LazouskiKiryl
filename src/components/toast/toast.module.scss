@@ -1,0 +1,81 @@
+@import '../../styles/style.scss';
+
+$border-color-warning: #f42c4f;
+$backgroung-color-warning: #feebea;
+
+$border-color-success: #00ca71;
+$backgroung-color-success: #ebf9f1;
+
+.toast {
+  display: flex;
+  padding: 24px 32px;
+  border: 1.5px solid;
+  border-radius: 5px;
+
+  @media (max-width: $width-tablet-max) {
+    padding: 24px 16px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    padding: 12px 16px;
+  }
+
+  &_warning {
+    border-color: $border-color-warning;
+    background: $backgroung-color-warning;
+  }
+
+  &_success {
+    border-color: $border-color-success;
+    background: $backgroung-color-success;
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin-right: 24px;
+
+  @media (max-width: $width-tablet-max) {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+  }
+}
+
+.message {
+  flex: 1 1 auto;
+  margin-top: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.1px;
+
+  @media (max-width: $width-tablet-max) {
+    margin-top: 3px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.1px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    margin-top: 0;
+  }
+}
+
+.close {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-top: 4px;
+  margin-left: 16px;
+  cursor: pointer;
+
+  @media (max-width: $width-tablet-max) {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+  }
+}

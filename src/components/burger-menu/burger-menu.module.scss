@@ -1,0 +1,108 @@
+@import '../../styles/style.scss';
+
+$box-shadow-menu: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18),
+  0px 1px 5px rgba(191, 196, 201, 0.24);
+
+.burgerMenu {
+  position: relative;
+  display: none;
+  width: 32px;
+  height: 32px;
+
+  @media (max-width: $width-tablet-max) {
+    display: block;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.button {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+
+  &Line {
+    display: block;
+    width: calc(20 / 24 * 100%);
+    height: calc(2 / 24 * 100%);
+    margin: calc(4 / 24 * 100%) auto;
+    border-radius: 10px;
+    background: $color-main-dark;
+    transition: all 0.1s;
+
+    .active & {
+      background: $gradient-primary;
+    }
+
+    &:nth-of-type(1) {
+      margin-top: calc(5 / 24 * 100%);
+
+      .active & {
+        transform: translateY(300%) rotate(45deg);
+      }
+    }
+
+    &:nth-of-type(2) {
+      .active & {
+        width: 0;
+      }
+    }
+
+    &:nth-of-type(3) {
+      margin-bottom: calc(5 / 24 * 100%);
+
+      .active & {
+        transform: translateY(-300%) rotate(-45deg);
+      }
+    }
+  }
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 22px);
+  left: 0;
+  width: 502px;
+  border-radius: 10px;
+  box-shadow: $box-shadow-menu;
+  background: $color-black-5;
+  transition: left 0.1s;
+  z-index: 10;
+
+  @media (max-width: $width-mobile-max) {
+    top: calc(100% + 26px);
+    max-width: calc(100vw - 48px);
+  }
+
+  &_hidden {
+    left: -1000px;
+  }
+}
+
+.menuSection {
+  padding: 32px 32px 52px;
+
+  @media (max-width: $width-mobile-max) {
+    padding: 32px 4px 52px 16px;
+  }
+}
+
+.userMenu {
+  border-top: 1px solid $color-black-20;
+
+  &Item {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.1px;
+    color: $color-main-dark;
+
+    &:nth-of-type(1) {
+      margin-bottom: 42px;
+    }
+  }
+}

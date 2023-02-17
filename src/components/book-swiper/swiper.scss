@@ -1,0 +1,28 @@
+@import '../../styles/style.scss';
+
+.swiper {
+  .swiper-pagination {
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+    padding: 8px 0 7px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 7px;
+    height: 7px;
+    background: $color-black-20;
+  }
+
+  .swiper-pagination-bullet-active {
+    width: 9px;
+    height: 9px;
+    background: $color-main-dark;
+  }
+
+  .swiper-slide-thumb-active {
+    border-color: #f85106;
+  }
+}

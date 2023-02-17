@@ -1,0 +1,78 @@
+@import '../../styles/style.scss';
+
+$box-shadow-hover: 0px 2px 5px rgba(54, 54, 54, 0.1);
+$box-shadow-active: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+
+.button {
+  @extend %text-mobile-button-small;
+
+  padding: 11px 18px;
+  border: none;
+  border-radius: 20px;
+  outline-offset: -1px;
+  background: $gradient-primary;
+  color: $color-main-white;
+  cursor: pointer;
+
+  &:hover {
+    outline: 1px solid #ff740f;
+    box-shadow: $box-shadow-hover;
+  }
+
+  &:active {
+    outline: none;
+    box-shadow: $box-shadow-active;
+  }
+
+  &:disabled {
+    background: #ebebeb;
+    pointer-events: none;
+  }
+}
+
+.secondary {
+  outline: 1px solid #bfc4c9;
+  background: $color-main-white;
+  color: $color-main-dark;
+
+  &:hover {
+    outline-color: $color-black-40;
+    box-shadow: $box-shadow-hover;
+  }
+
+  &:active {
+    outline: 1px solid $color-black-20;
+    box-shadow: $box-shadow-active;
+  }
+
+  &:disabled {
+    outline-color: $color-black-20;
+    background: $color-black-5;
+    color: $color-black-40;
+    pointer-events: none;
+  }
+}
+
+.large {
+  padding: 14px 18px;
+  border-radius: 30px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+
+  @media (max-width: $width-mobile-max) {
+    padding: 11px 18px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.2px;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
