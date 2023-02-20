@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { useFetchBooksQuery, useFetchCategoriesQuery } from '../../store/api/books-api';
+import { useFetchCategoriesAndBooks } from '../../store/hooks/use-fetch-categories-and-books';
 import { Loader } from '../loader';
 import { Menu } from '../menu';
 import { Toast } from '../toast';
@@ -9,13 +9,8 @@ import { Toast } from '../toast';
 import cl from './layout-main.module.scss';
 
 export const LayoutMain = () => {
-  const { isLoading: isCategoryLoading, isError: isCategoryError } = useFetchCategoriesQuery();
-  const { isLoading: isBooksLoading, isError: isBooksError } = useFetchBooksQuery();
+  const { isFetching, isError } = useFetchCategoriesAndBooks();
   const [showError, setShowError] = useState(true);
-
-  const isLoading = isCategoryLoading || isBooksLoading;
-  const isError = isCategoryError || isBooksError;
-  const isShowError = isError && !isLoading && showError;
 
   return (
     <div className={cl.layoutMainPage}>
@@ -25,8 +20,8 @@ export const LayoutMain = () => {
       <div className={cl.content}>
         <Outlet />
       </div>
-      {isLoading && <Loader />}
-      {isShowError && (
+      {isFetching && <Loader />}
+      {isError && showError && (
         <div data-test-id='error' className={cl.toast}>
           <Toast
             message='Что-то пошло не так. Обновите страницу через некоторое время.'

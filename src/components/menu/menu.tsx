@@ -3,7 +3,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { ReactComponent as DownIcon } from '../../assets/icons/down-arrow-icon.svg';
-import { useFetchBooksQuery, useFetchCategoriesQuery } from '../../store/api/books-api';
+import { useFetchCategoriesAndBooks } from '../../store/hooks/use-fetch-categories-and-books';
 
 import cl from './menu.module.scss';
 
@@ -13,9 +13,8 @@ interface MenuProps {
 }
 
 export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
+  const { categories, isSuccess } = useFetchCategoriesAndBooks();
   const [showBookCategories, setShowBookCategories] = useState<boolean>(true);
-  const { data: bookCategories } = useFetchCategoriesQuery();
-  const { isSuccess: isBooksSuccess } = useFetchBooksQuery();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -54,10 +53,10 @@ export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
           aria-hidden='true'
         >
           <h5 className={cl.title}>Витрина книг</h5>
-          {bookCategories && isBooksSuccess && <DownIcon />}
+          {isSuccess && <DownIcon />}
         </div>
 
-        {bookCategories && isBooksSuccess && (
+        {isSuccess && (
           <ul className={classNames(cl.content, { [cl.content_hidden]: !showBookCategories })}>
             <NavLink data-test-id={`${testId}-books`} to='/books/all' onClick={onClose}>
               {({ isActive }) => (
@@ -68,11 +67,11 @@ export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
               )}
             </NavLink>
 
-            {bookCategories.map((bookCategory) => (
-              <NavLink key={bookCategory.id} to={`/books/${bookCategory.path}`} onClick={onClose}>
+            {categories.map((category) => (
+              <NavLink key={category.id} to={`/books/${category.path}`} onClick={onClose}>
                 {({ isActive }) => (
-                  <li className={classNames({ [cl.category_active]: isActive })} key={bookCategory.id}>
-                    <span className={cl.categoryName}>{bookCategory.name}</span>
+                  <li className={classNames({ [cl.category_active]: isActive })} key={category.id}>
+                    <span className={cl.categoryName}>{category.name}</span>
                     <span className={cl.categoryQuantity}>0</span>
                   </li>
                 )}
