@@ -1,9 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { ReactComponent as DownIcon } from '../../assets/icons/down-arrow-icon.svg';
 import { useFetchCategoriesAndBooks } from '../../store/hooks/use-fetch-categories-and-books';
+import { CategoryWithQuantity } from '../../types/category';
+import { createCategoriesWithQuantity } from '../../utils/category';
 
 import cl from './menu.module.scss';
 
@@ -13,11 +15,16 @@ interface MenuProps {
 }
 
 export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
-  const { categories, isSuccess } = useFetchCategoriesAndBooks();
+  const { categories, books, isSuccess } = useFetchCategoriesAndBooks();
   const [showBookCategories, setShowBookCategories] = useState<boolean>(true);
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const categoriesWithQuantity: CategoryWithQuantity[] = useMemo(
+    () => createCategoriesWithQuantity(categories, books),
+    [categories, books]
+  );
 
   const bookCategoryActive = location.pathname.includes('/books');
 
@@ -62,17 +69,16 @@ export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
               {({ isActive }) => (
                 <li className={classNames({ [cl.category_active]: isActive })}>
                   <span className={cl.categoryName}>Все книги</span>
-                  <span className={cl.categoryQuantity}>0</span>
                 </li>
               )}
             </NavLink>
 
-            {categories.map((category) => (
+            {categoriesWithQuantity.map((category) => (
               <NavLink key={category.id} to={`/books/${category.path}`} onClick={onClose}>
                 {({ isActive }) => (
                   <li className={classNames({ [cl.category_active]: isActive })} key={category.id}>
                     <span className={cl.categoryName}>{category.name}</span>
-                    <span className={cl.categoryQuantity}>0</span>
+                    <span className={cl.categoryQuantity}>{category.quantity}</span>
                   </li>
                 )}
               </NavLink>
