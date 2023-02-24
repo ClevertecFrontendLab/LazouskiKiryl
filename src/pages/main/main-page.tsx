@@ -54,7 +54,7 @@ export const MainPage = () => {
       <div className={booksClassName}>
         {sortedBooks.map((book) => (
           <Link key={book.id} to={`/books/${categoryPath}/${book.id}`}>
-            <Card book={book} />
+            <Card book={book} searchQuery={searchQuery} />
           </Link>
         ))}
       </div>
