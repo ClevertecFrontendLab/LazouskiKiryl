@@ -5,9 +5,10 @@ import classNames from 'classnames';
 import { BookCard } from '../../components/book-card';
 import { ListBookCard } from '../../components/list-book-card';
 import { Navigation } from '../../components/navigation';
+import { useAppSelector } from '../../store/hooks/use-app-selector';
 import { useFetchCategoriesAndBooks } from '../../store/hooks/use-fetch-categories-and-books';
 import { ViewType } from '../../types/view';
-import { getCategoryBooks } from '../../utils/books';
+import { getCategoryBooks, sortBooks } from '../../utils/books';
 
 import cl from './main-page.module.scss';
 
@@ -15,11 +16,19 @@ export const MainPage = () => {
   const { books, categories, isSuccess } = useFetchCategoriesAndBooks();
   const [view, setView] = useState<ViewType>('grid');
   const { category: categoryPath } = useParams();
+  const { searchQuery, sorting } = useAppSelector((store) => store.books);
 
   const categoryBooks = useMemo(
     () => getCategoryBooks(books, categories, categoryPath),
     [books, categories, categoryPath]
   );
+
+  const searchedBooks = useMemo(
+    () => categoryBooks.filter((book) => book.title.toLowerCase().includes(searchQuery.toLowerCase())),
+    [categoryBooks, searchQuery]
+  );
+
+  const sortedBooks = useMemo(() => sortBooks(searchedBooks, sorting), [searchedBooks, sorting]);
 
   const changeView = (viewType: ViewType) => {
     setView(viewType);
@@ -37,8 +46,9 @@ export const MainPage = () => {
     <section className={cl.mainPage}>
       <Navigation view={view} onChangeView={changeView} />
       {!categoryBooks.length && <p className={cl.notFound}>В этой категории книг ещё нет</p>}
+      {!sortedBooks.length && categoryBooks.length && <p className={cl.notFound}>По запросу ничего не найдено</p>}
       <div className={booksClassName}>
-        {categoryBooks.map((book) => (
+        {sortedBooks.map((book) => (
           <Link key={book.id} to={`/books/${categoryPath}/${book.id}`}>
             <Card book={book} />
           </Link>
