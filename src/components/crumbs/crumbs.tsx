@@ -20,11 +20,13 @@ export const Crumbs: FC<CrumbsProps> = ({ bookTitle }) => {
   return (
     <div className={cl.crumbs}>
       <div className={cl.content}>
-        <Link to={`/books/${categoryPath}`}>
+        <Link data-test-id='breadcrumbs-link' to={`/books/${categoryPath}`}>
           <p className={cl.first}>{categoryName}</p>
         </Link>
         <img className={cl.separator} src={chevronIcon} alt='separator' />
-        <p className={cl.second}>{bookTitle}</p>
+        <p data-test-id='book-name' className={cl.second}>
+          {bookTitle}
+        </p>
       </div>
     </div>
   );

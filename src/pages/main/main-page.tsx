@@ -49,8 +49,16 @@ export const MainPage = () => {
   return (
     <section className={cl.mainPage}>
       <Navigation view={view} onChangeView={changeView} />
-      {!categoryBooks.length && <p className={cl.notFound}>В этой категории книг ещё нет</p>}
-      {!sortedBooks.length && categoryBooks.length && <p className={cl.notFound}>По запросу ничего не найдено</p>}
+      {!categoryBooks.length && (
+        <p data-test-id='empty-category' className={cl.notFound}>
+          В этой категории книг ещё нет
+        </p>
+      )}
+      {!sortedBooks.length && categoryBooks.length && (
+        <p data-test-id='search-result-not-found' className={cl.notFound}>
+          По запросу ничего не найдено
+        </p>
+      )}
       <div className={booksClassName}>
         {sortedBooks.map((book) => (
           <Link key={book.id} to={`/books/${categoryPath}/${book.id}`}>

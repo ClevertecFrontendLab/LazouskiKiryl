@@ -16,7 +16,7 @@ export const SortButton = () => {
   };
 
   return (
-    <button className={cl.sortButton} type='button' onClick={handleChangeSorting}>
+    <button data-test-id='sort-rating-button' className={cl.sortButton} type='button' onClick={handleChangeSorting}>
       {sorting === Sorting.DESC ? <DescSortIcon className={cl.icon} /> : <AscSortIcon className={cl.icon} />}
       <span className={cl.text}>По рейтингу</span>
     </button>

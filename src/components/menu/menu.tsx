@@ -74,11 +74,18 @@ export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
             </NavLink>
 
             {categoriesWithQuantity.map((category) => (
-              <NavLink key={category.id} to={`/books/${category.path}`} onClick={onClose}>
+              <NavLink
+                data-test-id={`${testId}-${category.path}`}
+                key={category.id}
+                to={`/books/${category.path}`}
+                onClick={onClose}
+              >
                 {({ isActive }) => (
                   <li className={classNames({ [cl.category_active]: isActive })} key={category.id}>
                     <span className={cl.categoryName}>{category.name}</span>
-                    <span className={cl.categoryQuantity}>{category.quantity}</span>
+                    <span data-test-id={`${testId}-book-count-for-${category.path}`} className={cl.categoryQuantity}>
+                      {category.quantity}
+                    </span>
                   </li>
                 )}
               </NavLink>
