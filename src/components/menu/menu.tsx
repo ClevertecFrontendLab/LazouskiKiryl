@@ -65,24 +65,23 @@ export const Menu: FC<MenuProps> = ({ testId, onClose }) => {
 
         {isSuccess && (
           <ul className={classNames(cl.content, { [cl.content_hidden]: !showBookCategories })}>
-            <NavLink data-test-id={`${testId}-books`} to='/books/all' onClick={onClose}>
+            <NavLink to='/books/all' onClick={onClose}>
               {({ isActive }) => (
                 <li className={classNames({ [cl.category_active]: isActive })}>
-                  <span className={cl.categoryName}>Все книги</span>
+                  <span data-test-id={`${testId}-books`} className={cl.categoryName}>
+                    Все книги
+                  </span>
                 </li>
               )}
             </NavLink>
 
             {categoriesWithQuantity.map((category) => (
-              <NavLink
-                data-test-id={`${testId}-${category.path}`}
-                key={category.id}
-                to={`/books/${category.path}`}
-                onClick={onClose}
-              >
+              <NavLink key={category.id} to={`/books/${category.path}`} onClick={onClose}>
                 {({ isActive }) => (
                   <li className={classNames({ [cl.category_active]: isActive })} key={category.id}>
-                    <span className={cl.categoryName}>{category.name}</span>
+                    <span data-test-id={`${testId}-${category.path}`} className={cl.categoryName}>
+                      {category.name}
+                    </span>
                     <span data-test-id={`${testId}-book-count-for-${category.path}`} className={cl.categoryQuantity}>
                       {category.quantity}
                     </span>
