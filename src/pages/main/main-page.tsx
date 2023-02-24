@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -13,10 +13,14 @@ import { getCategoryBooks, sortBooks } from '../../utils/books';
 import cl from './main-page.module.scss';
 
 export const MainPage = () => {
-  const { books, categories, isSuccess } = useFetchCategoriesAndBooks();
+  const { books, categories, isSuccess, refetchBooks } = useFetchCategoriesAndBooks();
   const [view, setView] = useState<ViewType>('grid');
   const { category: categoryPath } = useParams();
   const { searchQuery, sorting } = useAppSelector((store) => store.books);
+
+  useEffect(() => {
+    refetchBooks();
+  }, [refetchBooks]);
 
   const categoryBooks = useMemo(
     () => getCategoryBooks(books, categories, categoryPath),

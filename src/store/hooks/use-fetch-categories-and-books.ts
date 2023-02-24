@@ -12,6 +12,7 @@ export const useFetchCategoriesAndBooks = () => {
     isFetching: isBooksFetching,
     isSuccess: isBooksSuccess,
     isError: isBooksError,
+    refetch: refetchBooks,
   } = useFetchBooksQuery();
 
   const isFetching = isCategoriesFetching || isBooksFetching;
@@ -24,5 +25,6 @@ export const useFetchCategoriesAndBooks = () => {
     isFetching,
     isSuccess,
     isError,
+    refetchBooks,
   };
 };
