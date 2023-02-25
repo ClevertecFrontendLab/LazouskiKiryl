@@ -1,9 +1,3 @@
-export interface BookCategory {
-  id: number;
-  path: string;
-  name: string;
-}
-
 export interface Book {
   id: number;
   title: string;

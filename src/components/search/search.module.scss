@@ -50,6 +50,14 @@ $box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 20
   }
 }
 
+.searchIcon {
+  fill: $color-black-40;
+
+  .search:focus-within & {
+    fill: #f83600;
+  }
+}
+
 .closeButton {
   display: none;
 
@@ -66,7 +74,7 @@ $box-shadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 20
   border: none;
   outline: none;
   color: $color-black-40;
-  caret-color: #f85106;
+  caret-color: #f83600;
 
   @media (max-width: $width-mobile-max) {
     display: none;

@@ -4,15 +4,17 @@ import { Book } from '../../types/book';
 import { createButtonText } from '../../utils/book';
 import { BookLogo } from '../book-logo';
 import { Button } from '../button';
+import { Highlight } from '../highlight';
 import { Rating } from '../rating';
 
 import cl from './list-book-card.module.scss';
 
 interface ListBookCardProps {
   book: Book;
+  searchQuery: string;
 }
 
-export const ListBookCard: FC<ListBookCardProps> = ({ book }) => {
+export const ListBookCard: FC<ListBookCardProps> = ({ book, searchQuery }) => {
   const rating = book.rating ? <Rating value={book.rating} size='small' /> : <p>ещё нет оценок</p>;
 
   const buttonVariant = book.booking || book.delivery ? 'secondary' : 'primary';
@@ -29,7 +31,9 @@ export const ListBookCard: FC<ListBookCardProps> = ({ book }) => {
       </div>
       <div className={cl.content}>
         <div className={cl.name}>
-          <h5 className={cl.title}>{book.title}</h5>
+          <h5 className={cl.title}>
+            <Highlight text={book.title} highlight={searchQuery} />
+          </h5>
           <p className={cl.author}>{authors}</p>
         </div>
         <div className={cl.panel}>

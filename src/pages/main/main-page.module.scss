@@ -34,3 +34,23 @@
   grid-template-rows: repeat(1, 1fr);
   row-gap: 16px;
 }
+
+.notFound {
+  margin-top: 170px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0.1px;
+  color: $color-black-40;
+
+  @media (max-width: $width-tablet-max) {
+    margin-top: 200px;
+  }
+
+  @media (max-width: $width-mobile-max) {
+    margin-top: 110px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+}

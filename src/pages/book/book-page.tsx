@@ -38,7 +38,9 @@ export const BookPage = () => {
               )}
             </div>
             <div className={cl.headerMain}>
-              <h3 className={cl.headerMainTitle}>{book.title}</h3>
+              <h3 data-test-id='book-title' className={cl.headerMainTitle}>
+                {book.title}
+              </h3>
               <p className={cl.headerMainAuthor}>{createAuthotsAndIssueYear(book)}</p>
               <div className={cl.headerMainButton}>
                 <Button size='large' fullWidth={true} {...createButtonAttributes(book)} />
