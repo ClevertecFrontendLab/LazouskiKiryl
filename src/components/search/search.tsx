@@ -2,7 +2,7 @@ import { FC, FormEvent } from 'react';
 import classNames from 'classnames';
 
 import closeIcon from '../../assets/icons/close-icon.svg';
-import searchIcon from '../../assets/icons/search-icon.svg';
+import { ReactComponent as SearchIcon } from '../../assets/icons/search-icon.svg';
 import { useAppDispatch } from '../../store/hooks/use-app-dispatch';
 import { useAppSelector } from '../../store/hooks/use-app-selector';
 import { setSearchQuery } from '../../store/slices/books-slice';
@@ -30,7 +30,7 @@ export const Search: FC<SearchProps> = ({ searching, setSearching }) => {
         type='button'
         onClick={() => setSearching(true)}
       >
-        <img src={searchIcon} alt='search' />
+        <SearchIcon className={cl.searchIcon} />
       </button>
       <input
         data-test-id='input-search'

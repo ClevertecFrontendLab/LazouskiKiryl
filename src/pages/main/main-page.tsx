@@ -54,7 +54,7 @@ export const MainPage = () => {
           В этой категории книг ещё нет
         </p>
       )}
-      {!sortedBooks.length && categoryBooks.length && (
+      {!sortedBooks.length && !!categoryBooks.length && (
         <p data-test-id='search-result-not-found' className={cl.notFound}>
           По запросу ничего не найдено
         </p>
