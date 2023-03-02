@@ -1,0 +1,27 @@
+@import '../../styles/style.scss';
+
+.authenticationLayout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: $gradient-primary;
+}
+
+.title {
+  position: absolute;
+  top: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0.1px;
+  color: $color-main-white;
+
+  @media (max-width: $width-mobile-max) {
+    top: 16px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
