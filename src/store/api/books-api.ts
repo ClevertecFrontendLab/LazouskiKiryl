@@ -8,6 +8,7 @@ const categoryURL = '/api/categories';
 const booksURL = '/api/books';
 
 export const booksApi = createApi({
+  reducerPath: 'booksApi',
   baseQuery: fetchBaseQuery({
     baseUrl: API_HOST,
   }),
