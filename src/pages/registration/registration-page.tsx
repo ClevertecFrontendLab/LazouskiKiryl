@@ -43,7 +43,7 @@ const FirstStep: FC<NextStepProps> = ({ onNextStep }) => {
   const passwordRequiredError = errors.password && errors.password.type === 'required';
 
   return (
-    <form className={cl.form} onSubmit={handleSubmit(onSubmit)}>
+    <form data-test-id='register-form' className={cl.form} onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor='username'>Придумайте логин для входа</label>
       <input
         className={classNames({ [cl.error]: usernameRequiredError })}
@@ -56,8 +56,12 @@ const FirstStep: FC<NextStepProps> = ({ onNextStep }) => {
           },
         })}
       />
-      <p>Используйте для логина латинский алфавит и цифры</p>
-      {usernameRequiredError && <p className={cl.errorMessage}>Поле не может быть пустым</p>}
+      <p data-test-id='hint'>Используйте для логина латинский алфавит и цифры</p>
+      {usernameRequiredError && (
+        <p data-test-id='hint' className={cl.errorMessage}>
+          Поле не может быть пустым
+        </p>
+      )}
       {errors.username && errors.username.types && <p>{Object.keys(errors.username.types).join(' - ')}</p>}
 
       <label htmlFor='password'>Пароль</label>
@@ -73,8 +77,12 @@ const FirstStep: FC<NextStepProps> = ({ onNextStep }) => {
           },
         })}
       />
-      <p>Пароль не менее 8 символов, с заглавной буквой и цифрой</p>
-      {passwordRequiredError && <p className={cl.errorMessage}>Поле не может быть пустым</p>}
+      <p data-test-id='hint'>Пароль не менее 8 символов, с заглавной буквой и цифрой</p>
+      {passwordRequiredError && (
+        <p data-test-id='hint' className={cl.errorMessage}>
+          Поле не может быть пустым
+        </p>
+      )}
       {errors.password && errors.password.types && <p>{Object.keys(errors.password.types).join(' - ')}</p>}
 
       <button type='submit'>следующий шаг</button>
@@ -96,7 +104,7 @@ const SecondStep: FC<NextStepProps> = ({ onNextStep }) => {
   };
 
   return (
-    <form className={cl.form} onSubmit={handleSubmit(onSubmit)}>
+    <form data-test-id='register-form' className={cl.form} onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor='firstName'>Имя</label>
       <input
         className={classNames({ [cl.error]: errors.firstName })}
@@ -106,7 +114,11 @@ const SecondStep: FC<NextStepProps> = ({ onNextStep }) => {
         })}
       />
 
-      {errors.firstName && <p className={cl.errorMessage}>Поле не может быть пустым</p>}
+      {errors.firstName && (
+        <p data-test-id='hint' className={cl.errorMessage}>
+          Поле не может быть пустым
+        </p>
+      )}
 
       <label htmlFor='password'>Фамилия</label>
       <input
@@ -116,7 +128,11 @@ const SecondStep: FC<NextStepProps> = ({ onNextStep }) => {
           required: true,
         })}
       />
-      {errors.lastName && <p className={cl.errorMessage}>Поле не может быть пустым</p>}
+      {errors.lastName && (
+        <p data-test-id='hint' className={cl.errorMessage}>
+          Поле не может быть пустым
+        </p>
+      )}
 
       <button type='submit'>последний шаг</button>
     </form>
@@ -141,7 +157,7 @@ const ThirdStep: FC<ThirdStepProps> = ({ onRegistration }) => {
   };
 
   return (
-    <form className={cl.form} onSubmit={handleSubmit(onSubmit)}>
+    <form data-test-id='register-form' className={cl.form} onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor='phone'>Номер телефона</label>
       <input
         className={classNames({ [cl.error]: errors.phone })}
@@ -150,8 +166,12 @@ const ThirdStep: FC<ThirdStepProps> = ({ onRegistration }) => {
           required: true,
         })}
       />
-      <p>В формате +375 (xx) xxx-xx-xx</p>
-      {errors.phone && <p className={cl.errorMessage}>Поле не может быть пустым</p>}
+      <p data-test-id='hint'>В формате +375 (xx) xxx-xx-xx</p>
+      {errors.phone && (
+        <p data-test-id='hint' className={cl.errorMessage}>
+          Поле не может быть пустым
+        </p>
+      )}
 
       <label htmlFor='email'>E-mail</label>
       <input
@@ -161,8 +181,12 @@ const ThirdStep: FC<ThirdStepProps> = ({ onRegistration }) => {
           required: true,
         })}
       />
-      <p>Введите корректный e-mail</p>
-      {errors.email && <p className={cl.errorMessage}>Поле не может быть пустым</p>}
+      <p data-test-id='hint'>Введите корректный e-mail</p>
+      {errors.email && (
+        <p data-test-id='hint' className={cl.errorMessage}>
+          Поле не может быть пустым
+        </p>
+      )}
       <button type='submit'>зарегистрироваться</button>
     </form>
   );

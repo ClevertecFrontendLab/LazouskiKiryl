@@ -16,7 +16,7 @@ export const AuthorizationPage = () => {
   return (
     <div>
       <h3>Вход в личный кабинет</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form data-test-id='auth-form' onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='identifier'>Логин</label>
         <input
           type='text'
@@ -24,7 +24,7 @@ export const AuthorizationPage = () => {
             required: true,
           })}
         />
-        {errors.identifier && <p>Поле не может быть пустым</p>}
+        {errors.identifier && <p data-test-id='hint'>Поле не может быть пустым</p>}
 
         <label htmlFor='password'>Пароль</label>
         <input
@@ -33,7 +33,7 @@ export const AuthorizationPage = () => {
             required: true,
           })}
         />
-        {errors.password && <p>Поле не может быть пустым</p>}
+        {errors.password && <p data-test-id='hint'>Поле не может быть пустым</p>}
 
         <a>Забыли логин или пароль?</a>
         <button type='submit'>вход</button>

@@ -57,7 +57,9 @@ export const BurgerMenu = () => {
         </div>
         <div className={classNames(cl.menuSection, cl.userMenu)}>
           <h3 className={cl.userMenuItem}>Профиль</h3>
-          <h3 className={cl.userMenuItem}>Выход</h3>
+          <h3 data-test-id='exit-button' className={cl.userMenuItem}>
+            Выход
+          </h3>
         </div>
       </div>
     </div>
