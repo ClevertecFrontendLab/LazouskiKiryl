@@ -32,3 +32,16 @@ export interface AuthResponse {
 export interface ForgotPasswordResponse {
   ok: boolean;
 }
+
+export interface AuthError {
+  status: number;
+  data: {
+    data: null;
+    error: {
+      status: number;
+      name: string;
+      message: string;
+      details: object;
+    };
+  };
+}

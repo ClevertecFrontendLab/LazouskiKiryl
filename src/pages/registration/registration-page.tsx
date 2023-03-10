@@ -1,9 +1,15 @@
 import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 
-// import { useRegistrationMutation } from '../../store/api/auth-api';
-// import { RegistrationRequest } from '../../types/auth';
+import { Button } from '../../components/button';
+import { Loader } from '../../components/loader';
+import { MessageModal } from '../../components/message-modal';
+import { RoutePath } from '../../constants/constants';
+import { useRegistrationMutation } from '../../store/api/auth-api';
+import { AuthError, RegistrationRequest } from '../../types/auth';
+
 import cl from './registration-page.module.scss';
 
 type FirstInputs = {
@@ -193,20 +199,58 @@ const ThirdStep: FC<ThirdStepProps> = ({ onRegistration }) => {
 };
 
 export const RegistrationPage = () => {
-  const [step, setStep] = useState(1);
-  // const [formState, setFormState] = useState<RegistrationRequest>({
-  //   username: '',
-  //   password: '',
-  //   firstName: '',
-  //   lastName: '',
-  //   phone: '',
-  //   email: '',
-  // });
+  const [step, setStep] = useState(3);
+  const [formState, setFormState] = useState<RegistrationRequest>({
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+  });
 
-  // const [registration, { isLoading, isSuccess, isError, data, error }] = useRegistrationMutation();
+  const [registration, { isLoading, isSuccess, isError, error }] = useRegistrationMutation();
+
+  const navigate = useNavigate();
 
   const nextStep = () => setStep((prevStep) => prevStep + 1);
-  const registration1 = () => {};
+  const registration1 = () => {
+    registration(formState);
+  };
+
+  const toAuthorization = () => {
+    navigate(RoutePath.authorization);
+  };
+
+  if (isSuccess) {
+    return (
+      <MessageModal
+        title='Регистрация успешна'
+        message='Регистрация прошла успешно. Зайдите в личный кабинет, используя свои логин и пароль'
+        actionComponent={<Button text='вход' onClick={toAuthorization} />}
+      />
+    );
+  }
+
+  if (isError && (error as AuthError).status === 400) {
+    return (
+      <MessageModal
+        title='Данные не сохранились'
+        message='Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail.'
+        actionComponent={<Button text='назад к регистрации' onClick={() => {}} />}
+      />
+    );
+  }
+
+  if (isError) {
+    return (
+      <MessageModal
+        title='Данные не сохранились'
+        message='Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз'
+        actionComponent={<Button text='повторить' onClick={() => {}} />}
+      />
+    );
+  }
 
   return (
     <div className={cl.registrationPage}>
@@ -218,6 +262,7 @@ export const RegistrationPage = () => {
       <p>
         Есть учётная запись? <a>войти</a>
       </p>
+      {isLoading && <Loader />}
     </div>
   );
 };

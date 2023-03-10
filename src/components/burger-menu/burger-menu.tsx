@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
+import { useAppDispatch } from '../../store/hooks/use-app-dispatch';
+import { logout } from '../../store/slices/auth-slice';
 import { Menu } from '../menu';
 
 import cl from './burger-menu.module.scss';
@@ -9,6 +11,7 @@ export const BurgerMenu = () => {
   const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
   const buttonRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const outsideClickHandler = (e: MouseEvent) => {
@@ -34,6 +37,10 @@ export const BurgerMenu = () => {
     setMenuOpen(false);
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <div className={cl.burgerMenu}>
       <div
@@ -57,7 +64,7 @@ export const BurgerMenu = () => {
         </div>
         <div className={classNames(cl.menuSection, cl.userMenu)}>
           <h3 className={cl.userMenuItem}>Профиль</h3>
-          <h3 data-test-id='exit-button' className={cl.userMenuItem}>
+          <h3 data-test-id='exit-button' className={cl.userMenuItem} onClick={handleLogout} aria-hidden={true}>
             Выход
           </h3>
         </div>

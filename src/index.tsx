@@ -26,12 +26,12 @@ root.render(
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route element={<LayoutMain />}>
-              <Route path='/' element={<Navigate to='/books/all' />} />
-              <Route path='/books/:category' element={<MainPage />} />
-              <Route path='/terms' element={<TermsPage title='Правила пользования' />} />
-              <Route path='/contract' element={<TermsPage title='Договор оферты' />} />
+              <Route path='/' element={<Navigate to={RoutePath.allBooks} />} />
+              <Route path={RoutePath.books} element={<MainPage />} />
+              <Route path={RoutePath.terms} element={<TermsPage title='Правила пользования' />} />
+              <Route path={RoutePath.contract} element={<TermsPage title='Договор оферты' />} />
             </Route>
-            <Route path='/books/:category/:bookId' element={<BookPage />} />
+            <Route path={RoutePath.book} element={<BookPage />} />
           </Route>
           <Route path='/' element={<AuthenticationLayout />}>
             <Route path={RoutePath.registration} element={<RegistrationPage />} />

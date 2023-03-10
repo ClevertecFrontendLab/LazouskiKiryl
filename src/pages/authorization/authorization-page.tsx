@@ -1,8 +1,16 @@
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
-import { AuthorizationRequest } from '../../types/auth';
+import { Button } from '../../components/button';
+import { Loader } from '../../components/loader';
+import { MessageModal } from '../../components/message-modal';
+import { RoutePath } from '../../constants/constants';
+import { useAuthorizationMutation } from '../../store/api/auth-api';
+import { AuthError, AuthorizationRequest } from '../../types/auth';
 
 export const AuthorizationPage = () => {
+  const [authorization, { isLoading, isError, error }] = useAuthorizationMutation();
+
   const {
     register,
     handleSubmit,
@@ -11,7 +19,19 @@ export const AuthorizationPage = () => {
     mode: 'onBlur',
   });
 
-  const onSubmit = () => {};
+  const onSubmit: SubmitHandler<AuthorizationRequest> = (data) => {
+    authorization(data);
+  };
+
+  if (isError && (error as AuthError).status !== 400) {
+    return (
+      <MessageModal
+        title='Вход не выполнен'
+        message='Что-то пошло не так. Попробуйте ещё раз'
+        actionComponent={<Button text='повторить' />}
+      />
+    );
+  }
 
   return (
     <div>
@@ -35,12 +55,13 @@ export const AuthorizationPage = () => {
         />
         {errors.password && <p data-test-id='hint'>Поле не может быть пустым</p>}
 
-        <a>Забыли логин или пароль?</a>
+        <Link to={RoutePath.forgotPassword}>Забыли логин или пароль?</Link>
         <button type='submit'>вход</button>
       </form>
       <p>
-        Нет учётной записи? <a>Регистрация</a>
+        Нет учётной записи? <Link to={RoutePath.registration}>Регистрация</Link>
       </p>
+      {isLoading && <Loader />}
     </div>
   );
 };
