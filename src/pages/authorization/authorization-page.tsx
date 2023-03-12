@@ -2,7 +2,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import { Button } from '../../components/button';
-import { Loader } from '../../components/loader';
+import { FormModal } from '../../components/form-modal';
+import { Input } from '../../components/input';
+import { InputHint } from '../../components/input-hint';
 import { MessageModal } from '../../components/message-modal';
 import { RoutePath } from '../../constants/constants';
 import { useAuthorizationMutation } from '../../store/api/auth-api';
@@ -14,6 +16,7 @@ export const AuthorizationPage = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<AuthorizationRequest>({
     mode: 'onBlur',
@@ -34,34 +37,43 @@ export const AuthorizationPage = () => {
   }
 
   return (
-    <div>
-      <h3>Вход в личный кабинет</h3>
-      <form data-test-id='auth-form' onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor='identifier'>Логин</label>
-        <input
-          type='text'
-          {...register('identifier', {
-            required: true,
-          })}
-        />
-        {errors.identifier && <p data-test-id='hint'>Поле не может быть пустым</p>}
+    <FormModal
+      title='Вход в личный кабинет'
+      form={
+        <form data-test-id='auth-form' onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            type='text'
+            label='Логин'
+            value={getValues().identifier}
+            isError={!!errors.identifier}
+            {...register('identifier', {
+              required: 'Поле не может быть пустым',
+            })}
+          />
+          {errors.identifier && <InputHint isError={true}>{errors.identifier.message}</InputHint>}
 
-        <label htmlFor='password'>Пароль</label>
-        <input
-          type='password'
-          {...register('password', {
-            required: true,
-          })}
-        />
-        {errors.password && <p data-test-id='hint'>Поле не может быть пустым</p>}
+          <Input
+            type='password'
+            label='Пароль'
+            value={getValues().password}
+            isError={!!errors.password}
+            {...register('password', {
+              required: 'Поле не может быть пустым',
+            })}
+          />
+          {errors.password && <InputHint isError={true}>{errors.password.message}</InputHint>}
 
-        <Link to={RoutePath.forgotPassword}>Забыли логин или пароль?</Link>
-        <button type='submit'>вход</button>
-      </form>
-      <p>
-        Нет учётной записи? <Link to={RoutePath.registration}>Регистрация</Link>
-      </p>
-      {isLoading && <Loader />}
-    </div>
+          <Link to={RoutePath.forgotPassword}>Забыли логин или пароль?</Link>
+
+          <Button type='submit' text='вход' size='large' fullWidth={true} />
+        </form>
+      }
+      footer={
+        <p>
+          Нет учётной записи? <Link to={RoutePath.registration}>Регистрация</Link>
+        </p>
+      }
+      isLoading={isLoading}
+    />
   );
 };

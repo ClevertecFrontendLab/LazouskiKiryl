@@ -1,10 +1,11 @@
-import { FC, useState } from 'react';
+import { FC, Fragment, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import classNames from 'classnames';
 
 import { Button } from '../../components/button';
-import { Loader } from '../../components/loader';
+import { FormModal } from '../../components/form-modal';
+import { Input } from '../../components/input';
+import { InputHint } from '../../components/input-hint';
 import { MessageModal } from '../../components/message-modal';
 import { RoutePath } from '../../constants/constants';
 import { useRegistrationMutation } from '../../store/api/auth-api';
@@ -27,179 +28,189 @@ type ThirdInputs = {
   email: string;
 };
 
-interface NextStepProps {
-  onNextStep: () => void;
+interface FirstStepProps {
+  onSubmitValues: (values: FirstInputs) => void;
 }
 
-const FirstStep: FC<NextStepProps> = ({ onNextStep }) => {
+interface SecondStepProps {
+  onSubmitValues: (values: SecondInputs) => void;
+}
+
+interface ThirdStepProps {
+  onSubmitValues: (values: ThirdInputs) => void;
+}
+
+const FirstStep: FC<FirstStepProps> = ({ onSubmitValues }) => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<FirstInputs>({
     mode: 'onChange',
     criteriaMode: 'all',
   });
 
-  const onSubmit: SubmitHandler<FirstInputs> = () => {
-    onNextStep();
+  const onSubmit: SubmitHandler<FirstInputs> = (data) => {
+    onSubmitValues(data);
   };
-
-  const usernameRequiredError = errors.username && errors.username.type === 'required';
-  const passwordRequiredError = errors.password && errors.password.type === 'required';
 
   return (
     <form data-test-id='register-form' className={cl.form} onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor='username'>Придумайте логин для входа</label>
-      <input
-        className={classNames({ [cl.error]: usernameRequiredError })}
+      <Input
         type='text'
+        label='Придумайте логин для входа'
+        value={getValues().username}
+        isError={!!errors.username}
         {...register('username', {
-          required: true,
+          required: 'Поле не может быть пустым',
           validate: {
-            latin: (value) => !!value.match(/[A-Za-z]/),
-            number: (value) => !!value.match(/[0-9]/),
+            latin: (value) => !!value.match(/[A-Za-z]/) || 'Используйте для логина латинский алфавит и цифры',
+            number: (value) => !!value.match(/[0-9]/) || 'Используйте для логина латинский алфавит и цифры',
           },
         })}
       />
-      <p data-test-id='hint'>Используйте для логина латинский алфавит и цифры</p>
-      {usernameRequiredError && (
-        <p data-test-id='hint' className={cl.errorMessage}>
-          Поле не может быть пустым
-        </p>
-      )}
-      {errors.username && errors.username.types && <p>{Object.keys(errors.username.types).join(' - ')}</p>}
 
-      <label htmlFor='password'>Пароль</label>
-      <input
-        className={classNames({ [cl.error]: passwordRequiredError })}
+      {errors.username ? (
+        <InputHint isError={true}>{errors.username.message}</InputHint>
+      ) : (
+        <InputHint isError={false}>Используйте для логина латинский алфавит и цифры</InputHint>
+      )}
+
+      {/* {errors.username && errors.username.types && <p>{Object.keys(errors.username.types).join(' - ')}</p>} */}
+
+      <Input
         type='password'
+        label='Пароль'
+        value={getValues().password}
+        isError={!!errors.password}
         {...register('password', {
-          required: true,
+          required: 'Поле не может быть пустым',
           validate: {
-            length: (value) => value.length >= 8,
-            capitalLetter: (value) => !!value.match(/[A-Z]/),
-            number: (value) => !!value.match(/[0-9]/),
+            length: (value) => value.length >= 8 || 'Пароль не менее 8 символов, с заглавной буквой и цифрой',
+            capitalLetter: (value) =>
+              !!value.match(/[A-Z]/) || 'Пароль не менее 8 символов, с заглавной буквой и цифрой',
+            number: (value) => !!value.match(/[0-9]/) || 'Пароль не менее 8 символов, с заглавной буквой и цифрой',
           },
         })}
       />
-      <p data-test-id='hint'>Пароль не менее 8 символов, с заглавной буквой и цифрой</p>
-      {passwordRequiredError && (
-        <p data-test-id='hint' className={cl.errorMessage}>
-          Поле не может быть пустым
-        </p>
+      {errors.password ? (
+        <InputHint isError={true}>{errors.password.message}</InputHint>
+      ) : (
+        <InputHint isError={false}>Пароль не менее 8 символов, с заглавной буквой и цифрой</InputHint>
       )}
-      {errors.password && errors.password.types && <p>{Object.keys(errors.password.types).join(' - ')}</p>}
 
-      <button type='submit'>следующий шаг</button>
+      {/* {errors.password && errors.password.types && <p>{Object.keys(errors.password.types).join(' - ')}</p>} */}
+
+      <Button type='submit' text='следующий шаг' size='large' fullWidth={true} />
     </form>
   );
 };
 
-const SecondStep: FC<NextStepProps> = ({ onNextStep }) => {
+const SecondStep: FC<SecondStepProps> = ({ onSubmitValues }) => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<SecondInputs>({
     mode: 'onBlur',
   });
 
-  const onSubmit: SubmitHandler<SecondInputs> = () => {
-    onNextStep();
+  const onSubmit: SubmitHandler<SecondInputs> = (data) => {
+    onSubmitValues(data);
   };
 
   return (
     <form data-test-id='register-form' className={cl.form} onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor='firstName'>Имя</label>
-      <input
-        className={classNames({ [cl.error]: errors.firstName })}
+      <Input
         type='text'
+        label='Имя'
+        value={getValues().firstName}
+        isError={!!errors.firstName}
         {...register('firstName', {
-          required: true,
+          required: 'Поле не может быть пустым',
         })}
       />
+      {errors.firstName && <InputHint isError={true}>{errors.firstName.message}</InputHint>}
 
-      {errors.firstName && (
-        <p data-test-id='hint' className={cl.errorMessage}>
-          Поле не может быть пустым
-        </p>
-      )}
-
-      <label htmlFor='password'>Фамилия</label>
-      <input
-        className={classNames({ [cl.error]: errors.lastName })}
-        type='password'
+      <Input
+        type='text'
+        label='Фамилия'
+        value={getValues().lastName}
+        isError={!!errors.lastName}
         {...register('lastName', {
-          required: true,
+          required: 'Поле не может быть пустым',
         })}
       />
-      {errors.lastName && (
-        <p data-test-id='hint' className={cl.errorMessage}>
-          Поле не может быть пустым
-        </p>
-      )}
+      {errors.lastName && <InputHint isError={true}>{errors.lastName.message}</InputHint>}
 
-      <button type='submit'>последний шаг</button>
+      <Button type='submit' text='последний шаг' size='large' fullWidth={true} />
     </form>
   );
 };
 
-interface ThirdStepProps {
-  onRegistration: () => void;
-}
-
-const ThirdStep: FC<ThirdStepProps> = ({ onRegistration }) => {
+const ThirdStep: FC<ThirdStepProps> = ({ onSubmitValues }) => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<ThirdInputs>({
     mode: 'onBlur',
   });
 
-  const onSubmit: SubmitHandler<ThirdInputs> = () => {
-    onRegistration();
+  const onSubmit: SubmitHandler<ThirdInputs> = (data) => {
+    onSubmitValues(data);
   };
 
   return (
     <form data-test-id='register-form' className={cl.form} onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor='phone'>Номер телефона</label>
-      <input
-        className={classNames({ [cl.error]: errors.phone })}
+      <Input
         type='text'
+        label='Номер телефона'
+        value={getValues().phone}
+        isError={!!errors.phone}
         {...register('phone', {
-          required: true,
+          required: 'Поле не может быть пустым',
+          validate: {
+            phone: (value) => !!value.match(/[A-Za-z]/) || 'В формате +375 (xx) xxx-xx-xx',
+          },
         })}
       />
-      <p data-test-id='hint'>В формате +375 (xx) xxx-xx-xx</p>
-      {errors.phone && (
-        <p data-test-id='hint' className={cl.errorMessage}>
-          Поле не может быть пустым
-        </p>
+
+      {errors.phone ? (
+        <InputHint isError={true}>{errors.phone.message}</InputHint>
+      ) : (
+        <InputHint isError={false}>В формате +375 (xx) xxx-xx-xx</InputHint>
       )}
 
-      <label htmlFor='email'>E-mail</label>
-      <input
-        className={classNames({ [cl.error]: errors.email })}
-        type='password'
+      <Input
+        type='text'
+        label='E-mail'
+        value={getValues().email}
+        isError={!!errors.email}
         {...register('email', {
-          required: true,
+          required: 'Поле не может быть пустым',
+          validate: {
+            email: (value) => !!value.match(/[^\s@]+@[^\s@]+\.[^\s@]+/) || 'Введите корректный e-mail',
+          },
         })}
       />
-      <p data-test-id='hint'>Введите корректный e-mail</p>
-      {errors.email && (
-        <p data-test-id='hint' className={cl.errorMessage}>
-          Поле не может быть пустым
-        </p>
+
+      {errors.email ? (
+        <InputHint isError={true}>{errors.email.message}</InputHint>
+      ) : (
+        <InputHint isError={false}>В формате +375 (xx) xxx-xx-xx</InputHint>
       )}
-      <button type='submit'>зарегистрироваться</button>
+
+      <Button type='submit' text='зарегистрироваться' size='large' fullWidth={true} />
     </form>
   );
 };
 
 export const RegistrationPage = () => {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(1);
   const [formState, setFormState] = useState<RegistrationRequest>({
     username: '',
     password: '',
@@ -213,13 +224,28 @@ export const RegistrationPage = () => {
 
   const navigate = useNavigate();
 
-  const nextStep = () => setStep((prevStep) => prevStep + 1);
-  const registration1 = () => {
-    registration(formState);
-  };
-
   const toAuthorization = () => {
     navigate(RoutePath.authorization);
+  };
+
+  const submitFirstStep = (values: FirstInputs) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      ...values,
+    }));
+    setStep(2);
+  };
+
+  const submitSecondStep = (values: SecondInputs) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      ...values,
+    }));
+    setStep(3);
+  };
+
+  const submitThirdStep = (values: ThirdInputs) => {
+    registration({ ...formState, ...values });
   };
 
   if (isSuccess) {
@@ -253,16 +279,22 @@ export const RegistrationPage = () => {
   }
 
   return (
-    <div className={cl.registrationPage}>
-      <h3>Регистрация</h3>
-      <p>{step} шаг из 3</p>
-      {step === 1 && <FirstStep onNextStep={nextStep} />}
-      {step === 2 && <SecondStep onNextStep={nextStep} />}
-      {step === 3 && <ThirdStep onRegistration={registration1} />}
-      <p>
-        Есть учётная запись? <a>войти</a>
-      </p>
-      {isLoading && <Loader />}
-    </div>
+    <FormModal
+      title='Регистрация'
+      subTitle={`${step} шаг из 3`}
+      form={
+        <Fragment>
+          {step === 1 && <FirstStep onSubmitValues={submitFirstStep} />}
+          {step === 2 && <SecondStep onSubmitValues={submitSecondStep} />}
+          {step === 3 && <ThirdStep onSubmitValues={submitThirdStep} />}
+        </Fragment>
+      }
+      footer={
+        <p>
+          Есть учётная запись? <a>войти</a>
+        </p>
+      }
+      isLoading={isLoading}
+    />
   );
 };

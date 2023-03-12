@@ -3,7 +3,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { Button } from '../../components/button';
-import { Loader } from '../../components/loader';
+import { FormModal } from '../../components/form-modal';
+import { Input } from '../../components/input';
+import { InputHint } from '../../components/input-hint';
 import { MessageModal } from '../../components/message-modal';
 import { RoutePath } from '../../constants/constants';
 import { useForgotPasswordMutation, useResetPasswordMutation } from '../../store/api/auth-api';
@@ -15,6 +17,7 @@ const SendEmailForm = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<ForgotPasswordRequest>({
     mode: 'onBlur',
@@ -32,19 +35,34 @@ const SendEmailForm = () => {
   }
 
   return (
-    <form data-test-id='send-email-form' onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor='identifier'>Email</label>
-      <input
-        type='text'
-        {...register('email', {
-          required: true,
-        })}
-      />
-      <p>На это email будет отправлено письмо с инструкциями по восстановлению пароля</p>
-      {errors.email && <p>Поле не может быть пустым</p>}
-      <button type='submit'>восстановить</button>
-      {isLoading && <Loader />}
-    </form>
+    <FormModal
+      title='Восстановление пароля'
+      form={
+        <form data-test-id='send-email-form' onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            type='text'
+            label='Email'
+            value={getValues().email}
+            isError={!!errors.email}
+            {...register('email', {
+              required: 'Поле не может быть пустым',
+              validate: {
+                email: (value) => !!value.match(/[^\s@]+@[^\s@]+\.[^\s@]+/) || 'Введите корректный e-mail',
+              },
+            })}
+          />
+          {errors.email && <InputHint isError={true}>{errors.email.message}</InputHint>}
+          <InputHint>На это email будет отправлено письмо с инструкциями по восстановлению пароля</InputHint>
+          <Button type='submit' text='восстановить' size='large' fullWidth={true} />
+        </form>
+      }
+      footer={
+        <p>
+          Нет учётной записи? <Link to={RoutePath.registration}>Регистрация</Link>
+        </p>
+      }
+      isLoading={isLoading}
+    />
   );
 };
 
@@ -96,41 +114,48 @@ const ResetPasswordForm: FC<ResetPasswordFormProps> = ({ code }) => {
   }
 
   return (
-    <form data-test-id='reset-password-form' onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor='password'>Пароль</label>
-      <input
-        type='password'
-        {...register('password', {
-          required: true,
-          validate: {
-            length: (value) => value.length >= 8,
-            capitalLetter: (value) => !!value.match(/[A-Z]/),
-            number: (value) => !!value.match(/[0-9]/),
-          },
-        })}
-      />
-      <p data-test-id='hint'>Пароль не менее 8 символов, с заглавной буквой и цифрой</p>
-      {errors.password && errors.password.type === 'required' && <p data-test-id='hint'>Поле не может быть пустым</p>}
-      {errors.password && errors.password.types && <p>{Object.keys(errors.password.types).join(' - ')}</p>}
+    <FormModal
+      title='Восстановление пароля'
+      form={
+        <form data-test-id='reset-password-form' onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor='password'>Пароль</label>
+          <input
+            type='password'
+            {...register('password', {
+              required: true,
+              validate: {
+                length: (value) => value.length >= 8,
+                capitalLetter: (value) => !!value.match(/[A-Z]/),
+                number: (value) => !!value.match(/[0-9]/),
+              },
+            })}
+          />
+          <p data-test-id='hint'>Пароль не менее 8 символов, с заглавной буквой и цифрой</p>
+          {errors.password && errors.password.type === 'required' && (
+            <p data-test-id='hint'>Поле не может быть пустым</p>
+          )}
+          {errors.password && errors.password.types && <p>{Object.keys(errors.password.types).join(' - ')}</p>}
 
-      <label htmlFor='password'>Повторите пароль</label>
-      <input
-        type='password'
-        {...register('passwordConfirmation', {
-          required: true,
-          validate: {
-            length: (value) => value.length >= 8,
-          },
-        })}
-      />
-      {errors.passwordConfirmation && errors.passwordConfirmation.type === 'required' && (
-        <p data-test-id='hint'>Поле не может быть пустым</p>
-      )}
+          <label htmlFor='password'>Повторите пароль</label>
+          <input
+            type='password'
+            {...register('passwordConfirmation', {
+              required: true,
+              validate: {
+                length: (value) => value.length >= 8,
+              },
+            })}
+          />
+          {errors.passwordConfirmation && errors.passwordConfirmation.type === 'required' && (
+            <p data-test-id='hint'>Поле не может быть пустым</p>
+          )}
 
-      <button type='submit'>сохранить изменения</button>
-      <p>После сохранения войдите в библиотеку, используя новый пароль</p>
-      {isLoading && <Loader />}
-    </form>
+          <button type='submit'>сохранить изменения</button>
+          <p>После сохранения войдите в библиотеку, используя новый пароль</p>
+        </form>
+      }
+      isLoading={isLoading}
+    />
   );
 };
 
@@ -141,14 +166,8 @@ export const ForgotPasswordPage = () => {
 
   return (
     <div>
-      <Link to={RoutePath.authorization}>вход в личный кабинет</Link>
-      <h3>Восстановление пароля</h3>
+      {/* <Link to={RoutePath.authorization}>вход в личный кабинет</Link> */}
       {code ? <ResetPasswordForm code={code} /> : <SendEmailForm />}
-      {!code && (
-        <p>
-          Нет учётной записи? <Link to={RoutePath.registration}>Регистрация</Link>
-        </p>
-      )}
     </div>
   );
 };
