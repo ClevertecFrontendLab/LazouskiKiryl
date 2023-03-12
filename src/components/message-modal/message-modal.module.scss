@@ -1,0 +1,27 @@
+@import '../../styles/style.scss';
+
+.messageModal {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 600px;
+  padding: 48px 96px;
+  border-radius: 16px;
+  background: $color-main-white;
+}
+
+.title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0.1px;
+}
+
+.message {
+  text-align: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.1px;
+}
