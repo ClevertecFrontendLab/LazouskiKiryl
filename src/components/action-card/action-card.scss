@@ -1,0 +1,35 @@
+.action-card {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+    gap: 16px;
+    padding: 12px 24px;
+    border-radius: 2px;
+    background: var(--character-light-primary-inverse);
+}
+
+.action-card-title {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    line-height: 130%;
+    color: var(--character-light-title-85);
+
+    @media (max-width: 992px) {
+        text-align: left;
+    }
+
+    @media (max-width: 480px) {
+        text-align: center;
+    }
+}
+
+.ant-btn-link.card-link {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 130%;
+    text-align: center;
+    color: var(--primary-light-6);
+}
