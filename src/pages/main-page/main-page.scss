@@ -113,7 +113,7 @@
     margin-top: -10px;
 }
 
-.main-page__main-menu .ant-menu-item.main-menu-item {
+.ant-menu-item.main-menu-item .ant-menu-item-icon {
     margin-left: 18px;
 
     @media (max-width: 768px) {
@@ -132,7 +132,7 @@
     background: var(--character-light-primary-inverse);
     z-index: 10;
 
-    @media (max-width: 678px) {
+    @media (max-width: 768px) {
         position: fixed;
         top: 0;
         left: 0;
